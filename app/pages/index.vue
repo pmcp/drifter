@@ -1,7 +1,12 @@
 <template>
-  <main>
-    <ImageGallery />
-    <RedirectsPanel />
-    <MessagesPanel />
-  </main>
+  <UContainer>
+    <UPage>
+      <main>
+        <MixesUpload />
+
+    <!--    <RedirectsPanel />-->
+    <!--    <MessagesPanel />-->
+      </main>
+    </UPage>
+  </UContainer>
 </template>
