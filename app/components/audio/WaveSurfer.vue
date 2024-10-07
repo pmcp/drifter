@@ -78,7 +78,11 @@
             </UButton>
           </div>
           <UInput v-model="region.content" placeholder="Comment" />
-
+          <template #footer>
+            <UButton @click="createNode(region)" :disabled="!ready" class="flex flex-row justify-center">
+              Add to Flow
+            </UButton>
+          </template>
         </UCard>
 </div>
       <div class="flex flex-col gap-2 flex-grow">
@@ -119,6 +123,10 @@ const currentTime = ref('00:00')
 const totalDuration = ref('00:00')
 
 
+const { addNode } = useNodes()
+const createNode = (region) => {
+  addNode(region)
+}
 
 
 // Only use shortcuts if not using inputs
@@ -281,7 +289,6 @@ const addRegion = (type) => {
       content: `New ${type}`
     });
 
-    console.log('newRegion', newRegion)
     regionsList.value.push({ id: newRegion.id, start, type, end });
   }
 };

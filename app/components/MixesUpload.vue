@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const { data: mixes, refresh } = await useFetch('/api/mixes')
 
+
 async function uploadMix (e: Event) {
   // https://hub.nuxt.com/docs/storage/blob#useupload
   const upload = useUpload('/api/mixes/upload', {
@@ -54,9 +55,6 @@ async function deleteMix (pathname: string) {
         duration: 80
       }"
     />
-
-
-
   </UCard>
 
 </template>
