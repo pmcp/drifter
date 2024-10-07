@@ -16,10 +16,10 @@
       </div>
       <div class="flex flex-row gap-2 items-center justify-between">
         <UButton @click="addRegion('comment')" :disabled="!ready" class="flex flex-row justify-center">
-          Create comment {{ currentTime}}
+          Add comment {{ currentTime}}
         </UButton>
         <UButton @click="addRegion('song')" :disabled="!ready" class="flex flex-row justify-center">
-          Start song at {{ currentTime}}
+          Add song at {{ currentTime}}
         </UButton>
       </div>
       <div>

@@ -53,9 +53,10 @@ async function deleteMix (pathname: string) {
 <!--        duration: 80-->
 <!--      }"-->
 <!--    />-->
-    <ClientOnly>
         <Audio-WaveSurfer
-          src="/241002.m4a"
+          v-for="m of mixes"
+          :key="m.pathname"
+          :src="`/mixes/${m.pathname}`"
           :options="{
             height: 48,
             waveColor: 'gray',
@@ -66,7 +67,6 @@ async function deleteMix (pathname: string) {
             duration: 80
           }"
         />
-    </ClientOnly>
 
 
 
