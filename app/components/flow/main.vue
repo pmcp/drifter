@@ -1,8 +1,16 @@
 <template>
-  <VueFlow class="flow w-full min-h-screen" :nodes="nodes" :connection-radius="30" auto-connect fit-view-on-init>
+  <VueFlow class="flow w-full min-h-screen" :nodes="nodes"  :edges="edges" :connection-radius="30" auto-connect fit-view-on-init>
     <template #node-song="nodeProps">
       <div class="bg-red-100">
-        {{ nodeProps.id}}
+        <UCard >
+          <template #header>
+            <UButton v-if="!playerIsPlaying" @click="playRegion(nodeProps)" icon="i-heroicons-play"></UButton>
+            <UButton v-else @click="stopRegion(nodeProps)" icon="i-heroicons-stop"></UButton>
+          </template>
+          {{ nodeProps.data.start.toFixed(2) }} - {{ nodeProps.data.end.toFixed(2) }}
+
+
+        </UCard>
       </div>
     </template>
 <!--    <template :key="id" #node-song-default="{id, data }">-->
@@ -82,23 +90,32 @@ import { Handle, useHandleConnections, VueFlow, useVueFlow, Position, useNodesDa
 
 const { nodes, updateNode } = useNodes()
 const { edges } = useEdges()
+const { setRegion, loadRegions } = useRegions()
 
+const { player, playerIsReady, playerIsPlaying } = usePlayer()
+const playRegion = (region) => {
+  if(!playerIsReady.value) return;
+  setRegion({
+    start: region.data.start,
+    end: region.data.end,
+    type: 'node',
+    id: region.id,
+  })
+  player.value.setTime(region.data.start)
+  player.value.play()
+}
+
+
+const stopRegion = (region) => {
+  if(!playerIsReady.value) return;
+  loadRegions()
+  player.value.pause()
+}
 
 // All flow events
 const {
-  onNodeDragStart,
   onNodeDrag,
-  onNodeDragStop,
-  onNodeClick,
-  onNodeDoubleClick,
-  onNodeContextMenu,
-  onNodeMouseEnter,
-  onNodeMouseLeave,
-  onNodeMouseMove,
-  onConnect,
-  addEdges,
   onEdgeDoubleClick,
-  getConnectedEdges
 } = useVueFlow()
 
 
@@ -106,7 +123,9 @@ onNodeDrag((value) => {
   updateNode(value.node)
 })
 
-
+onEdgeDoubleClick((value) => {
+  playRegion(value.edge)
+})
 
 </script>
 

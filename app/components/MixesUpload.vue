@@ -55,6 +55,7 @@ async function deleteMix (pathname: string) {
         duration: 80
       }"
     />
+
   </UCard>
 
 </template>
