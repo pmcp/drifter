@@ -2,17 +2,21 @@
   <UContainer>
     <UPage>
       <main>
-
-<!--        <client-only>-->
-<!--          <FlowMain/>-->
-<!--        </client-only>-->
-        <mixes-upload />
-        <audio-controls />
-        <action-buttons />
-
-        <comments-list />
-        <songs-list />
-        <mixes-list />
+        <UCard>
+          <template #header>
+            <mixes-upload />
+            <audio-controls />
+          </template>
+          <client-only>
+            <FlowMain class="h-80 w-full"/>
+          </client-only>
+          <template #footer>
+            <action-buttons />
+            <comments-list />
+            <songs-list />
+            <mixes-list />
+          </template>
+        </UCard>
       </main>
     </UPage>
   </UContainer>

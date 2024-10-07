@@ -27,7 +27,7 @@
     </div>
     <UInput v-model="region.content" placeholder="Comment" />
     <template #footer>
-      <UButton @click="createNode(region)" :disabled="!playerIsReady" class="flex flex-row justify-center">
+      <UButton @click="addNode(region)" :disabled="!playerIsReady" class="flex flex-row justify-center">
         <span v-if="nodes.filter(x => x.id === region.id).length">Update Item in Flow</span>
         <span v-else>Add to Flow</span>
       </UButton>
@@ -36,7 +36,7 @@
 </template>
 <script setup>
 const { items } = useItems()
-const { nodes } = useNodes()
+const { nodes, addNode } = useNodes()
 const { playerIsReady, playerCurrentTime } = usePlayer()
 const { removeRegion, setRegionBound } = useRegions()
 const songsList = computed(() => {

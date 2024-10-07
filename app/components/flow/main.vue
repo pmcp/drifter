@@ -1,5 +1,8 @@
 <template>
-  <VueFlow class="flow w-full min-h-screen" :nodes="nodes"  :edges="edges" :connection-radius="30" auto-connect fit-view-on-init>
+  <div class="w-full h-full">
+
+
+  <VueFlow class="flow w-full h-full" :nodes="nodes"  :edges="edges" :connection-radius="30" auto-connect fit-view-on-init>
     <template #node-song="nodeProps">
       <div class="bg-red-100">
         <UCard >
@@ -80,7 +83,7 @@
     <!--        }"-->
     <!--    />-->
   </VueFlow>
-
+  </div>
 </template>
 
 <script setup>
