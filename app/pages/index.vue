@@ -2,12 +2,17 @@
   <UContainer>
     <UPage>
       <main>
-        <MixesUpload />
-        <client-only>
-          <FlowMain/>
-        </client-only>
-    <!--    <RedirectsPanel />-->
-    <!--    <MessagesPanel />-->
+
+<!--        <client-only>-->
+<!--          <FlowMain/>-->
+<!--        </client-only>-->
+        <mixes-upload />
+        <audio-controls />
+        <action-buttons />
+
+        <comments-list />
+        <songs-list />
+        <mixes-list />
       </main>
     </UPage>
   </UContainer>

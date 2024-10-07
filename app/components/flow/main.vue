@@ -8,8 +8,6 @@
             <UButton v-else @click="stopRegion(nodeProps)" icon="i-heroicons-stop"></UButton>
           </template>
           {{ nodeProps.data.start.toFixed(2) }} - {{ nodeProps.data.end.toFixed(2) }}
-
-
         </UCard>
       </div>
     </template>

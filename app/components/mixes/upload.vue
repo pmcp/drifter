@@ -55,7 +55,10 @@ async function deleteMix (pathname: string) {
         duration: 80
       }"
     />
-
+    <template #footer>
+      <UButton >
+        Upload
+      </UButton>
+    </template>
   </UCard>
-
 </template>
