@@ -32,8 +32,21 @@
 
       <div class="flex flex-col gap-2 flex-grow">
         <UCard v-for="(region, index) in commentsList" :key="region.id">
-          {{ region.type }} {{ index +1 }} - {{ formatTime(region.start) }}
+          <template #header>
+            <div class="flex flex-row gap-2 items-center justify-between mb-2">
+              <span>{{ region.type }} {{ index +1 }}</span>
+              <UButton
+                icon="i-heroicons-trash"
+                size="sm"
+                color="primary"
+                variant="outline"
+                :trailing="false"
+                @click="removeRegion(region)"
+              />
+            </div>
+          </template>
           <UInput v-model="region.content" placeholder="Comment" />
+
         </UCard>
       </div>
 
@@ -43,6 +56,14 @@
             <div class="flex flex-row gap-2 items-center mb-2">
               <span>{{ region.type }} {{ index +1 }}:</span>
               <UInput v-model="region.title" placeholder="Title" class="flex-grow"/>
+              <UButton
+                icon="i-heroicons-trash"
+                size="sm"
+                color="primary"
+                variant="outline"
+                :trailing="false"
+                @click="removeRegion(region)"
+              />
             </div>
           </template>
           <div class="flex flex-row gap-2 items-center justify-between mb-2">
@@ -98,6 +119,20 @@ const currentTime = ref('00:00')
 const totalDuration = ref('00:00')
 
 
+
+
+// Only use shortcuts if not using inputs
+const activeElement = useActiveElement()
+const notUsingInput = computed(() =>
+  activeElement.value?.tagName !== 'INPUT'
+  && activeElement.value?.tagName !== 'TEXTAREA',)
+const { space, c, s } = useMagicKeys()
+
+
+
+
+
+
 const regionTypes = {
   comment: {
     color: 'rgba(255, 0, 0, 0.8)',
@@ -124,8 +159,6 @@ const commentsList = computed(() => {
 
 
 
-// Pure function to create a region
-const createRegion = (start, end) => ({ start, end });
 
 // Pure function to check if two regions overlap
 const isOverlapping = (region1, region2) =>
@@ -143,11 +176,8 @@ const createMix = (region1, region2) => {
 
 // Pure function to find mixes
 const findMixes = (regions) => {
-  console.log('findMixes', regions)
   const sortedRegions = [...regions].sort((a, b) => a.start - b.start);
-  console.log('sortedRegions', sortedRegions)
   return sortedRegions.reduce((mixes, region, index) => {
-    console.log('index', index)
     const newMixes = sortedRegions.slice(index + 1)
       .filter(nextRegion => isOverlapping(region, nextRegion))
       .map(nextRegion => createMix(region, nextRegion));
@@ -159,15 +189,9 @@ const findMixes = (regions) => {
 
 const mixList = computed(() => {
   const filteredRegions = regionsList.value.filter(x => x.type === 'song')
-
   const mixes = findMixes(filteredRegions)
-
-  console.log('mixes', mixes)
-  // const orderdMixes = mixes.sort((a, b) => a.start - b.start)
-
   return mixes
 })
-
 
 const props = defineProps({
   src: String,
@@ -213,6 +237,22 @@ onMounted(() => {
     // Add event listener for region updates
     regions.value.on('region-updated', updateRegionsList);
   }
+
+
+  // Only use space if not using inputs
+  whenever(logicAnd(space, notUsingInput), () => {
+    togglePlayPause()
+    console.log('Tab has been pressed outside of inputs!')
+  })
+
+  whenever(logicAnd(c, notUsingInput), () => {
+    addRegion('comment')
+  })
+
+  whenever(logicAnd(s, notUsingInput), () => {
+    addRegion('song')
+  })
+
 });
 
 onUnmounted(() => {
@@ -230,7 +270,6 @@ const togglePlayPause = () => {
 };
 
 const addRegion = (type) => {
-  console.log('addRegion', type)
   const start = waveSurfer.value.getCurrentTime()
   let end;
   if(type === 'song') end = start + 300
@@ -247,10 +286,15 @@ const addRegion = (type) => {
   }
 };
 
-const addMarker = () => {
-  if (waveSurfer.value) {
-    const currentTime = waveSurfer.value.getCurrentTime();
-    addRegion(currentTime, currentTime + 0.1);
+const removeRegion = (region) => {
+  if (regions.value) {
+    // Remove region from wavesurfer
+    const regionToRemove = regions.value.getRegions().find(r => r.id === region.id);
+    if (regionToRemove) {
+      regionToRemove.remove();
+    }
+    // Remove region from list
+    regionsList.value = regionsList.value.filter(r => r.id !== region.id);
   }
 };
 
