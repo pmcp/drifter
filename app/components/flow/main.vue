@@ -3,7 +3,7 @@
   <VueFlow aclass="flow w-full h-full"  :nodes="nodes"  :edges="edges" :connection-radius="30" auto-connect fit-view-on-init>
     <Background :patternColor="'black'"/>
 <!--    <MiniMap pannable zoomable />-->
-    <Controls />
+<!--    <Controls />-->
 <!--    <NodeToolbar :is-visible="true" position="left">-->
 <!--      <button>delete</button>-->
 <!--      <button>copy</button>-->

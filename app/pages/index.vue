@@ -35,38 +35,29 @@
       <UTabs :ui="tabsUi" :items="items" class="w-full h-10 overflow-hidden" :class="showLists ? 'h-80' : ''" v-model="selectedTab" >
         <template #item="{ item }">
           <div class="h-80 overflow-scroll">
-
-              <div v-if="item.key === 'comments'" >
-                <comments-list class=" overflow-scroll"/>
-              </div>
-
-              <div v-if="item.key === 'songs'" class="space-y-3">
-                <div class="overflow-scroll">
-                  <songs-list />
-
-                </div>
-              </div>
-
-              <div v-if="item.key === 'mixes'" class="space-y-3">
-                <mixes-list />
-              </div>
-
-
-
+            <comments-list v-if="item.key === 'comments'"/>
+            <songs-list v-if="item.key === 'songs'" />
+            <mixes-list v-if="item.key === 'mixes'" />
           </div>
-
         </template>
 
       </UTabs>
       <template #footer>
-        <div class="flex flex-row gap-2 items-center justify-between">
-          <action-buttons class="w-full"/>
+        <div class="grid grid-cols-3 gap-2 w-full">
+          <div class="justify-self-start flex flex-row gap-2 items-center justify-center">
+            <audio-controls />
+            <audio-duration class="hidden md:block"/>
+          </div>
 
-          <UButton v-if="!showLists" icon="i-heroicons-chevron-up" @click="showLists = !showLists"/>
-          <UButton v-else icon="i-heroicons-chevron-down" @click="showLists = !showLists"/>
-
-
+          <action-buttons/>
+          <div class="justify-self-end self-center">
+            <UButton v-if="!showLists" icon="i-heroicons-chevron-up" @click="showLists = !showLists"/>
+            <UButton v-else icon="i-heroicons-chevron-down" @click="showLists = !showLists"/>
+          </div>
         </div>
+
+
+
 
 
       </template>
@@ -123,16 +114,19 @@ const tabsUi = {
 
 const items = [{
   key: 'comments',
-  label: 'Comments',
+  // label: 'Comments',
+  icon: 'i-heroicons-chat-bubble-bottom-center-text',
   // description: 'Your comments'
 }, {
   key: 'songs',
-  label: 'Songs',
+  // label: 'Songs',
+  icon: 'i-heroicons-musical-note',
   // description: 'Your songs'
 },
   {
     key: 'mixes',
-    label: 'Mixes',
+    // label: 'Mixes',
+    icon: 'i-heroicons-arrow-path-rounded-square',
     // description: 'Your songs'
   }
   ]

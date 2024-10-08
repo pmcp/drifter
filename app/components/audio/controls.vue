@@ -1,9 +1,8 @@
 <template>
   <div class="flex flex-row gap-2 items-center justify-between">
-    <UButton @click="player.playPause()" :disabled="!playerIsReady" class="w-20 flex flex-row justify-center">
-      <span v-if="playerIsPlaying">Pause</span>
-      <span v-else>Play</span>
-    </UButton>
+    <UButton :ui="{ rounded: 'rounded-full' }" v-if="playerIsPlaying" @click="player.playPause()" :disabled="!playerIsReady" class="flex flex-row justify-center" icon="i-heroicons-play" />
+    <UButton :ui="{ rounded: 'rounded-full' }" v-else @click="player.playPause()" :disabled="!playerIsReady" class=" flex flex-row justify-center" icon="i-heroicons-pause" />
+
   </div>
 </template>
 <script setup>
