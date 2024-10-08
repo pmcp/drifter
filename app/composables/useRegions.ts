@@ -1,21 +1,21 @@
 export const useRegions = () => {
   const regionTypes = {
     comment: {
-      color: 'rgba(255, 0, 0, 0.8)',
+      color: 'rgba(255, 199, 0, 0.8)',
       options: {
         resize: false,
         drag: true
       }
     },
     song: {
-      color: 'rgba(200, 0, 0, 0.8)',
+      color: 'rgba(51, 255, 224, 0.5)',
       options: {
         resize: true,
         drag: true
       }
     },
     node: {
-      color: 'green',
+      color: 'rgba(230, 0, 0, 0.5)',
       options: {
         resize: false,
         drag: false
@@ -43,13 +43,15 @@ export const useRegions = () => {
       regions.value.clearRegions()
     }
 
-    return regions.value.addRegion({
+    const theRegion = {
       start:region.start,
       end: region.end,
       color: regionTypes[region.type].color,
       content: 'test',
       ...regionTypes[region.type].options
-    })
+    }
+
+    return regions.value.addRegion(theRegion)
   }
 
 
@@ -61,12 +63,12 @@ export const useRegions = () => {
     }
   }
 
-  const { playerCurrentTime } = usePlayer()
+
   const { items } = useItems()
   const addRegion = (type) => {
-    const start = playerCurrentTime.value
+    const start = player.value.getCurrentTime()
     let end;
-    if(type === 'song') end = start + 100
+    if(type === 'song') end = start + 10
     console.log('adding region', type, start, end)
     const newRegion = setRegion({
       start,

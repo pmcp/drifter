@@ -4,7 +4,7 @@
       <FlowMain class="h-screen w-screen"/>
     </client-only>
   </div>
-  <div class="absolute h-screen top-0 left-0 w-full p-8 pointer-events-none">
+  <div class="absolute h-screen top-0 left-0 w-full p-4 md:p-8 pointer-events-none">
       <UCard class="pointer-events-auto">
         <Audio-WaveSurfer
           src="testsong.m4a"
@@ -28,11 +28,11 @@
 
 
 
-  <div class="absolute bottom-0 left-0 w-full p-8 pointer-events-auto">
+  <div class="absolute bottom-0 left-0 w-full p-4 md:p-8 pointer-events-auto">
 
     <UCard>
 
-      <UTabs :ui="tabsUi" :items="items" class="w-full h-10 overflow-hidden" :class="showLists ? 'h-80' : ''" v-model="selectedTab" >
+      <UTabs @change="onTabClick" :ui="tabsUi" :items="items" class="w-full h-10 overflow-hidden" :class="showLists ? 'h-80' : ''" v-model="selectedTab" >
         <template #item="{ item }">
           <div class="h-80 overflow-scroll">
             <comments-list v-if="item.key === 'comments'"/>
@@ -148,6 +148,11 @@ const selectedTab = computed({
     router.replace({ query: { tab: items[value].label }, hash: '#control-tabs' })
   }
 })
+
+
+const onTabClick = (index) => {
+  showLists.value = true;
+}
 
 
 </script>

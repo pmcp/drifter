@@ -1,8 +1,8 @@
 <template>
-  <UCard v-for="(region, index) in commentsList" :key="region.id">
-    <template #header>
+  <div v-for="(region, index) in commentsList" :key="region.id">
+
       <div class="flex flex-row gap-2 items-center justify-between mb-2">
-        <span>{{ region.type }} {{ index +1 }}</span>
+        <UInput v-model="region.content" placeholder="Comment" class="flex-grow" />
         <UButton
           icon="i-heroicons-trash"
           size="sm"
@@ -12,11 +12,11 @@
           @click="removeRegion(region)"
         />
       </div>
-    </template>
 
-    <UInput v-model="region.content" placeholder="Comment" />
 
-  </UCard>
+
+
+  </div>
 </template>
 
 <script setup>

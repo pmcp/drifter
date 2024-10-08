@@ -1,21 +1,24 @@
 <template>
-  <UCard v-for="(region, index) in mixes" :key="region.id">
-    <template #header>
-      <div class="flex flex-row gap-2 items-center mb-2">
-        <span>Mix {{ index +1 }}:</span>
-        <UInput v-model="region.title" placeholder="Title" class="flex-grow"/>
+  <div class="flex flex-col gap-4">
+  <div v-if="mixes?.length > 1" v-for="(region, index) in mixes" :key="region.id" class="border-b pb-4">
+    <div class="flex flex-col gap-2">
+      <UInput v-model="region.title" placeholder="Title" class="flex-grow"/>
+      <div class="flex flex-row gap-2 items-center justify-between">
+        <span class="text-xs">{{ formatTime(region.start) }} <span v-if="region.end">- {{ formatTime(region.end) }}</span></span>
+        <UButton variant="soft" @click="createEdge(region)" :disabled="!playerIsReady" class="flex flex-row justify-center">
+          Add to Flow
+        </UButton>
       </div>
-    </template>
-    <span>{{ formatTime(region.start) }} <span v-if="region.end">- {{ formatTime(region.end) }}</span></span>
-    <div>
-      From {{ region.trackIn.title }} to {{ region.trackOut.title }}
+
     </div>
-    <template #footer>
-      <UButton @click="createEdge(region)" :disabled="!playerIsReady" class="flex flex-row justify-center">
-        Add to Flow
-      </UButton>
-    </template>
-  </UCard>
+  </div>
+  <div v-else>
+    <UContainer>
+    No mixes yet
+    </UContainer>
+  </div>
+
+</div>
 </template>
 <script setup>
 const { mixes } = useMixes()
