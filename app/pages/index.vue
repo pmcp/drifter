@@ -7,7 +7,7 @@
   <div class="absolute h-screen top-0 left-0 w-full p-8 pointer-events-none">
       <UCard class="pointer-events-auto">
         <Audio-WaveSurfer
-          src="testfiles/01 1986 (Obsimo Remix).m4a"
+          src="testsong.m4a"
           :options="{
           height: 48,
           waveColor: 'gray',
