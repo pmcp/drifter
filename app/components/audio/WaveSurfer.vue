@@ -14,6 +14,8 @@ const formatTime= (seconds) => [seconds / 60, seconds % 60].map((v) => `0${Math.
 
 import WaveSurfer from 'wavesurfer.js';
 import RegionsPlugin from 'wavesurfer.js/dist/plugins/regions.js';
+import ZoomPlugin from 'wavesurfer.js/dist/plugins/zoom.esm.js'
+
 
 
 const waveformRef = ref(null);
@@ -51,6 +53,17 @@ onMounted(() => {
       ...props.options,
       plugins: [regions.value],
     });
+
+    // Initialize the Zoom plugin
+    player.value.registerPlugin(
+      ZoomPlugin.create({
+        // the amount of zoom per wheel step, e.g. 0.5 means a 50% magnification per scroll
+        scale: 0.5,
+        // Optionally, specify the maximum pixels-per-second factor while zooming
+        maxZoom: 100,
+      }),
+    )
+
 
     player.value.load(props.src);
     player.value.on('ready', (duration) => {
