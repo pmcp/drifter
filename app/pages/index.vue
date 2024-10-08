@@ -10,34 +10,15 @@
       <!--          <mixes-upload />-->
     <div class="pointer-events-auto mb-2">
       <ui-darkmode />
-
     </div>
-      <UCard class="pointer-events-auto">
-
-        <Audio-WaveSurfer
-          src="testsong.m4a"
-          :options="{
-          height: 48,
-          waveColor: 'gray',
-          progressColor: 'black',
-          barGap: 1,
-          barWidth: 5,
-          barRadius: 8,
-          duration: 80
-        }"
-        />
-
-      </UCard>
 
   </div>
 
 
 
 
-  <div class="absolute bottom-0 left-0 w-full p-4 md:p-8 pointer-events-auto">
-
+  <div class="absolute bottom-0 left-0 w-full p-4 md:p-8 pointer-events-auto flex flex-col gap-4 mb-10">
     <UCard>
-
       <UTabs @change="onTabClick" :ui="tabsUi" :items="items" class="w-full h-10 overflow-hidden" :class="showLists ? 'h-80' : ''" v-model="selectedTab" >
         <template #item="{ item }">
           <div class="h-80 overflow-scroll">
@@ -46,31 +27,40 @@
             <mixes-list v-if="item.key === 'mixes'" />
           </div>
         </template>
-
       </UTabs>
-      <template #footer>
-        <div class="grid grid-cols-3 gap-2 w-full">
-          <div class="justify-self-start flex flex-row gap-2 items-center justify-center">
-            <audio-controls />
-            <audio-duration class="hidden md:block"/>
-          </div>
 
-          <action-buttons/>
-          <div class="justify-self-end self-center">
-            <UButton v-if="!showLists" icon="i-heroicons-chevron-up" @click="showLists = !showLists"/>
-            <UButton v-else icon="i-heroicons-chevron-down" @click="showLists = !showLists"/>
-          </div>
-        </div>
-
-
-
-
-
-      </template>
     </UCard>
 
 
+
+      <Audio-WaveSurfer
+        src="testsong.m4a"
+        :options="{
+          height: 48,
+          waveColor: 'gray',
+          progressColor: 'black',
+          barGap: 1,
+          barWidth: 5,
+          barRadius: 8,
+          duration: 80
+        }"
+      />
+
+    <div class="grid grid-cols-3 gap-2 w-full">
+      <div class="justify-self-start flex flex-row gap-2 items-center justify-center">
+        <audio-controls />
+        <audio-duration class="hidden md:block"/>
+      </div>
+      <action-buttons/>
+      <div class="justify-self-end self-center">
+        <UButton v-if="!showLists" icon="i-heroicons-chevron-up" @click="showLists = !showLists"/>
+        <UButton v-else icon="i-heroicons-chevron-down" @click="showLists = !showLists"/>
+      </div>
+    </div>
+
   </div>
+
+
 
 
 
