@@ -2,7 +2,16 @@
   <div class="w-full h-full">
 
 
-  <VueFlow class="flow w-full h-full" :nodes="nodes"  :edges="edges" :connection-radius="30" auto-connect fit-view-on-init>
+  <VueFlow aclass="flow w-full h-full"  :nodes="nodes"  :edges="edges" :connection-radius="30" auto-connect fit-view-on-init>
+    <Background />
+    <MiniMap pannable zoomable />
+    <Controls />
+    <NodeToolbar :is-visible="true" position="top">
+      <button>delete</button>
+      <button>copy</button>
+      <button>expand</button>
+    </NodeToolbar>
+
     <template #node-song="nodeProps">
       <div class="bg-red-100">
         <UCard >
@@ -10,6 +19,7 @@
             <UButton v-if="!playerIsPlaying" @click="playRegion(nodeProps)" icon="i-heroicons-play"></UButton>
             <UButton v-else @click="stopRegion(nodeProps)" icon="i-heroicons-stop"></UButton>
           </template>
+          ??{{ nodeProps.data.start }}
           {{ nodeProps.data.start.toFixed(2) }} - {{ nodeProps.data.end.toFixed(2) }}
         </UCard>
       </div>
@@ -87,6 +97,13 @@
 </template>
 
 <script setup>
+
+import { Background } from '@vue-flow/background'
+import { MiniMap } from '@vue-flow/minimap'
+import { Controls } from '@vue-flow/controls'
+import { NodeToolbar } from '@vue-flow/node-toolbar'
+
+
 import { Handle, useHandleConnections, VueFlow, useVueFlow, Position, useNodesData,  } from '@vue-flow/core'
 
 const { nodes, updateNode } = useNodes()

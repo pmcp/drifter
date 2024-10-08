@@ -24,8 +24,7 @@ async function deleteMix (pathname: string) {
 </script>
 
 <template>
-  <UCard class="mt-8">
-    <template #header>
+
       <UForm @submit.prevent="uploadMix" class="flex flex-row justify-between gap-2" >
         <UInput
           type="file"
@@ -38,27 +37,5 @@ async function deleteMix (pathname: string) {
           Upload
         </UButton>
       </UForm>
-    </template>
 
-      <!--      :src="`/mixes/${m.pathname}`"-->
-    <Audio-WaveSurfer
-      v-for="m of mixes"
-      :key="m.pathname"
-      src="testfiles/01 1986 (Obsimo Remix).m4a"
-      :options="{
-        height: 48,
-        waveColor: 'gray',
-        progressColor: 'black',
-        barGap: 1,
-        barWidth: 5,
-        barRadius: 8,
-        duration: 80
-      }"
-    />
-    <template #footer>
-      <UButton >
-        Upload
-      </UButton>
-    </template>
-  </UCard>
 </template>

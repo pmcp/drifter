@@ -3,6 +3,7 @@
   <UButton @click="addRegion('comment')" :disabled="!playerIsReady" class="flex flex-row justify-center">
     Add comment {{ playerCurrentTime}}
   </UButton>
+  <audio-controls />
   <UButton @click="addRegion('song')" :disabled="!playerIsReady" class="flex flex-row justify-center">
     Add song at {{ playerCurrentTime}}
   </UButton>
