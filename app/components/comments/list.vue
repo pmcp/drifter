@@ -1,5 +1,6 @@
 <template>
-  <div v-for="(region, index) in commentsList" :key="region.id">
+  <div class="flex flex-col gap-4 h-full">
+  <div v-if="commentsList.length" v-for="(region, index) in commentsList" :key="region.id">
 
       <div class="flex flex-row gap-2 items-center justify-between mb-2">
         <UInput v-model="region.content" placeholder="Comment" class="flex-grow" />
@@ -16,6 +17,10 @@
 
 
 
+  </div>
+    <div v-else class="h-full w-full flex flex-col items-center justify-center">
+      <span class="italic font-extralight">No comments yet</span>
+    </div>
   </div>
 </template>
 

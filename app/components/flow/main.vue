@@ -13,11 +13,11 @@
     <template #node-song="nodeProps">
       <div class="bg-red-100">
         <UCard >
-          <template #header>
-            <UButton v-if="!playerIsPlaying" @click="playRegion(nodeProps)" icon="i-heroicons-play"></UButton>
-            <UButton v-else @click="stopRegion(nodeProps)" icon="i-heroicons-stop"></UButton>
-          </template>
-          ??{{ nodeProps.data.start }}
+<!--          <template #header>-->
+<!--            <UButton v-if="!playerIsPlaying" @click="playRegion(nodeProps)" icon="i-heroicons-play"></UButton>-->
+<!--            <UButton v-else @click="stopRegion(nodeProps)" icon="i-heroicons-stop"></UButton>-->
+<!--          </template>-->
+          {{ nodeProps.data.start }}
           {{ nodeProps.data.start.toFixed(2) }} - {{ nodeProps.data.end.toFixed(2) }}
         </UCard>
       </div>

@@ -5,7 +5,15 @@
     </client-only>
   </div>
   <div class="absolute h-screen top-0 left-0 w-full p-4 md:p-8 pointer-events-none">
+
+
+      <!--          <mixes-upload />-->
+    <div class="pointer-events-auto mb-2">
+      <ui-darkmode />
+
+    </div>
       <UCard class="pointer-events-auto">
+
         <Audio-WaveSurfer
           src="testsong.m4a"
           :options="{
@@ -18,9 +26,7 @@
           duration: 80
         }"
         />
-        <template #header>
-          <mixes-upload />
-        </template>
+
       </UCard>
 
   </div>
