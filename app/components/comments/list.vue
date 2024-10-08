@@ -13,6 +13,7 @@
         />
       </div>
     </template>
+
     <UInput v-model="region.content" placeholder="Comment" />
 
   </UCard>

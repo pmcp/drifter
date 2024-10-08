@@ -5,40 +5,155 @@
     </client-only>
   </div>
   <div class="absolute h-screen top-0 left-0 w-full p-8 pointer-events-none">
-<!--      <UCard class="pointer-events-auto">-->
-<!--        <Audio-WaveSurfer-->
-<!--          src="testfiles/01 1986 (Obsimo Remix).m4a"-->
-<!--          :options="{-->
-<!--          height: 48,-->
-<!--          waveColor: 'gray',-->
-<!--          progressColor: 'black',-->
-<!--          barGap: 1,-->
-<!--          barWidth: 5,-->
-<!--          barRadius: 8,-->
-<!--          duration: 80-->
-<!--        }"-->
-<!--        />-->
-<!--        <template #header>-->
-<!--          <mixes-upload />-->
-<!--        </template>-->
-<!--      </UCard>-->
+      <UCard class="pointer-events-auto">
+        <Audio-WaveSurfer
+          src="testfiles/01 1986 (Obsimo Remix).m4a"
+          :options="{
+          height: 48,
+          waveColor: 'gray',
+          progressColor: 'black',
+          barGap: 1,
+          barWidth: 5,
+          barRadius: 8,
+          duration: 80
+        }"
+        />
+        <template #header>
+          <mixes-upload />
+        </template>
+      </UCard>
 
   </div>
 
 
-<!--  <div class="absolute bottom-0 left-0 w-full p-8 pointer-events-auto">-->
-<!--    <div class="flex flex-row gap-4 w-full mb-8">-->
-<!--      <comments-list />-->
-<!--      <songs-list class="flex-grow"/>-->
-<!--      <mixes-list class="flex-grow"/>-->
-<!--    </div>-->
-<!--    <action-buttons class="w-full"/>-->
-<!--  </div>-->
+
+
+  <div class="absolute bottom-0 left-0 w-full p-8 pointer-events-auto">
+
+    <UCard>
+
+      <UTabs :ui="tabsUi" :items="items" class="w-full h-10 overflow-hidden" :class="showLists ? 'h-80' : ''" v-model="selectedTab" >
+        <template #item="{ item }">
+          <div class="h-80 overflow-scroll">
+
+              <div v-if="item.key === 'comments'" >
+                <comments-list class=" overflow-scroll"/>
+              </div>
+
+              <div v-if="item.key === 'songs'" class="space-y-3">
+                <div class="overflow-scroll">
+                  <songs-list />
+
+                </div>
+              </div>
+
+              <div v-if="item.key === 'mixes'" class="space-y-3">
+                <mixes-list />
+              </div>
+
+
+
+          </div>
+
+        </template>
+
+      </UTabs>
+      <template #footer>
+        <div class="flex flex-row gap-2 items-center justify-between">
+          <action-buttons class="w-full"/>
+
+          <UButton v-if="!showLists" icon="i-heroicons-chevron-up" @click="showLists = !showLists"/>
+          <UButton v-else icon="i-heroicons-chevron-down" @click="showLists = !showLists"/>
+
+
+        </div>
+
+
+      </template>
+    </UCard>
+
+
+  </div>
 
 
 
 </template>
 
 <script setup>
-const { mixes } = useMixes()
+
+
+const showLists= ref(false)
+
+
+const tabsUi = {
+  wrapper: 'relative space-y-2',
+  container: 'relative w-full ',
+  base: 'focus:outline-none',
+  list: {
+    base: 'relative',
+    background: 'bg-gray-100 dark:bg-gray-800',
+    rounded: 'rounded-lg',
+    shadow: '',
+    padding: 'p-1',
+    height: 'h-10',
+    width: 'w-full',
+    marker: {
+      wrapper: 'absolute top-[4px] left-[4px] duration-200 ease-out focus:outline-none',
+      base: 'w-full h-full',
+      background: 'bg-white dark:bg-gray-900',
+      rounded: 'rounded-md',
+      shadow: 'shadow-sm',
+    },
+    tab: {
+      base: 'relative inline-flex items-center justify-center flex-shrink-0 w-full ui-focus-visible:outline-0 ui-focus-visible:ring-2 ui-focus-visible:ring-primary-500 dark:ui-focus-visible:ring-primary-400 ui-not-focus-visible:outline-none focus:outline-none disabled:cursor-not-allowed disabled:opacity-75 transition-colors duration-200 ease-out',
+      background: '',
+      active: 'text-gray-900 dark:text-white',
+      inactive: 'text-gray-500 dark:text-gray-400',
+      height: 'h-8',
+      padding: 'px-3',
+      size: 'text-sm',
+      font: 'font-medium',
+      rounded: 'rounded-md',
+      shadow: '',
+      icon: 'w-4 h-4 flex-shrink-0 me-2',
+    },
+  },
+}
+
+
+const items = [{
+  key: 'comments',
+  label: 'Comments',
+  // description: 'Your comments'
+}, {
+  key: 'songs',
+  label: 'Songs',
+  // description: 'Your songs'
+},
+  {
+    key: 'mixes',
+    label: 'Mixes',
+    // description: 'Your songs'
+  }
+  ]
+
+
+const route = useRoute()
+const router = useRouter()
+const selectedTab = computed({
+  get () {
+    const index = items.findIndex((item) => item.label === route.query.tab)
+    if (index === -1) {
+      return 0
+    }
+
+    return index
+  },
+  set (value) {
+    // Hash is specified here to prevent the page from scrolling to the top
+    router.replace({ query: { tab: items[value].label }, hash: '#control-tabs' })
+  }
+})
+
+
 </script>

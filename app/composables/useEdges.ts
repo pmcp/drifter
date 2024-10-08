@@ -6,7 +6,7 @@ export const useEdges = () => {
       id: `mix--${edge.trackIn.id}->${edge.trackOut.id}`,
       source: edge.trackIn.id,
       target: edge.trackOut.id,
-      type: 'mix',
+      type: 'step',
       data: {
         start: edge.start,
         end: edge.end,
