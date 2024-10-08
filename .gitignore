@@ -24,6 +24,6 @@ logs
 !.env.example
 
 # Testing purposes
-public/testfiles
+#public/testfiles
 
 .wrangler
