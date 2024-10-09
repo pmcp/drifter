@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col gap-4 h-full">
-    <div v-if="songsList.length" v-for="(region, index) in songsList" :key="region.id" class="border-b pb-4">
+    <div v-if="songsList?.length" v-for="(region, index) in songsList" :key="region.id" class="border-b pb-4">
         <div class="flex flex-col gap-2">
           <div class="flex flex-row gap-2 items-center mb-2">
   <!--          <span>{{ region.type }} {{ index +1 }}:</span>-->

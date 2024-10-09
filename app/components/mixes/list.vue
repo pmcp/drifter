@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col gap-4 h-full">
-  <div v-if="mixes.length" v-for="(region, index) in mixes" :key="region.id" class="border-b pb-4">
+  <div v-if="mixes?.length" v-for="(region, index) in mixes" :key="region.id" class="border-b pb-4">
     <div class="flex flex-col gap-2">
       <UInput v-model="region.title" placeholder="Title" class="flex-grow"/>
       <div class="flex flex-row gap-2 items-center justify-between">

@@ -33,30 +33,24 @@
 
 
 
-      <Audio-WaveSurfer
-        src="testsong.m4a"
-        :options="{
-          height: 48,
-          waveColor: 'gray',
-          progressColor: 'black',
-          barGap: 1,
-          barWidth: 5,
-          barRadius: 8,
-          duration: 80
-        }"
-      />
+      <player-wavesurfer/>
 
     <div class="grid grid-cols-3 gap-2 w-full">
       <div class="justify-self-start flex flex-row gap-2 items-center justify-center">
-        <audio-controls />
-        <audio-duration class="hidden md:block"/>
+        <player-controls />
+        <player-duration class="hidden md:block"/>
       </div>
       <action-buttons/>
       <div class="justify-self-end self-center">
         <UButton v-if="!showLists" icon="i-heroicons-chevron-up" @click="showLists = !showLists"/>
         <UButton v-else icon="i-heroicons-chevron-down" @click="showLists = !showLists"/>
       </div>
+
+      <player-joystick class="col-span-3" />
+
     </div>
+
+
 
   </div>
 
