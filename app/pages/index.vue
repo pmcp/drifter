@@ -4,32 +4,43 @@
       <FlowMain class="h-screen w-screen"/>
     </client-only>
   </div>
+
+  <div class="absolute bottom-4 left-4 pointer-events-auto">
+    <ui-darkmode />
+  </div>
+
   <div class="absolute h-screen top-0 left-0 w-full p-4 md:p-8 pointer-events-none">
 
+    <UCard class="pointer-events-auto relative">
+
+      <UTabs @change="onTabClick" :ui="tabsUi" :items="items" class="w-full h-10 overflow-hidden" :class="showLists ? 'h-96' : ''" v-model="selectedTab" >
+        <template #item="{ item }">
+          <div class="h-96 overflow-scroll flex flex-col gap-2 pointer-events-auto">
+              <comments-list v-if="item.key === 'comments'"/>
+              <songs-list v-if="item.key === 'songs'" />
+              <mixes-list v-if="item.key === 'mixes'" />
+          </div>
+
+        </template>
+      </UTabs>
+
+      <div class="absolute bottom-0 left-0 w-full flex flex-col justify-end items-center">
+        <UButton @click="showLists = !showLists"  variant="ghost" color="black" class="flex flex-row justify-center items-center gap-2 text-gray-300">
+          ___
+        </UButton>
+      </div>
+    </UCard>
 
       <!--          <mixes-upload />-->
-    <div class="pointer-events-auto mb-2">
-      <ui-darkmode />
-    </div>
+
 
   </div>
 
 
 
 
-  <div class="absolute bottom-0 left-0 w-full p-4 md:p-8 pointer-events-auto flex flex-col gap-4 mb-10">
-    <UCard>
-      <UTabs @change="onTabClick" :ui="tabsUi" :items="items" class="w-full h-10 overflow-hidden" :class="showLists ? 'h-80' : ''" v-model="selectedTab" >
-        <template #item="{ item }">
-          <div class="h-80 overflow-scroll">
-            <comments-list v-if="item.key === 'comments'"/>
-            <songs-list v-if="item.key === 'songs'" />
-            <mixes-list v-if="item.key === 'mixes'" />
-          </div>
-        </template>
-      </UTabs>
+  <div class="absolute bottom-0 left-0 w-full p-4 md:p-8  flex flex-col gap-4 mb-10">
 
-    </UCard>
 
 
 
@@ -141,6 +152,10 @@ const selectedTab = computed({
 
 
 const onTabClick = (index) => {
+  selectedTab.value = index
+  console.log('onTabClick', index, selectedTab.value)
+  console.log(index === selectedTab.value)
+  // if(index === selectedTab.value) showLists.value = !showLists.value; return;
   showLists.value = true;
 }
 

@@ -37,6 +37,7 @@ export const usePlayer = () => {
       barWidth: 3,
       barRadius: 2,
       minPxPerSec: 10,
+      fillParent: true,
       autoScroll: true,
       autoCenter: true,
     }
@@ -51,12 +52,12 @@ export const usePlayer = () => {
       url: playerSrc.value,
       plugins: [
         regions.value,
-        ZoomPlugin.create({
-          // the amount of zoom per wheel step, e.g. 0.5 means a 50% magnification per scroll
-          scale: 0.5,
-          // Optionally, specify the maximum pixels-per-second factor while zooming
-          maxZoom: 100,
-        }),
+        // ZoomPlugin.create({
+        //   // the amount of zoom per wheel step, e.g. 0.5 means a 50% magnification per scroll
+        //   scale: 0.5,
+        //   // Optionally, specify the maximum pixels-per-second factor while zooming
+        //   maxZoom: 100,
+        // }),
         // Minimap.create({
         //   // the Minimap can take all the same options as the WaveSurfer itself
         //   height: 20,
@@ -94,6 +95,7 @@ export const usePlayer = () => {
     })
 
     player.value.on('audioprocess', function() {
+      console.log('audioprocess', playerCurrentTime.value)
       // TODO: SHOULD FIX format time only where needed, not here
       playerCurrentTime.value = player.value.getCurrentTime()
     });
