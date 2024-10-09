@@ -12,15 +12,20 @@
 const {
   waveformRef,
   playerSrc,
+  player,
   initPlayer,
   playerLoadingValue,
   playerIsReady,
-  destroyPlayer
+  destroyPlayer,
+  togglePlayPause
 } = usePlayer()
+
+const { setShortcutKeys } = useKeys()
 
 onMounted(() => {
   playerSrc.value = 'testsong.m4a'
   initPlayer()
+  setShortcutKeys()
 });
 
 onUnmounted(() => {

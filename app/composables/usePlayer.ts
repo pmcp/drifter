@@ -21,6 +21,7 @@ export const usePlayer = () => {
 
 
   const initPlayer = () => {
+    if(player.value) return;
     console.info('✅ usePlayer - initPlayerinitPlayer')
     // Create a new WaveSurfer instance
 
@@ -48,7 +49,6 @@ export const usePlayer = () => {
     player.value = WaveSurfer.create({
       container: waveformRef.value,
       url: playerSrc.value,
-      ...playerSettings.value,
       plugins: [
         regions.value,
         ZoomPlugin.create({
@@ -65,6 +65,7 @@ export const usePlayer = () => {
         //   dragToSeek: true,
         // })
       ],
+      ...playerSettings.value,
     });
 
     // Set watchers
@@ -107,11 +108,18 @@ export const usePlayer = () => {
     player.value.destroy();
   }
 
+  const togglePlayPause = () => {
+    if (!player.value) { console.error('⛔ usePlayer - togglePlayPause: no player set'); return }
+    if(playerIsPlaying.value) player.value.pause()
+    else player.value.play()
+  }
+
   return {
     waveformRef,
     playerSrc,
     initPlayer,
     player,
+    togglePlayPause,
     playerSettings,
     playerIsPlaying,
     playerIsReady,

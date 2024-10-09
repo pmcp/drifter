@@ -1,4 +1,6 @@
+
 export const useKeys = () => {
+  const { togglePlayPause } = usePlayer()
   // Only use shortcuts if not using inputs
   // Vue Use Active Element
   const activeElement = useActiveElement()
@@ -11,7 +13,6 @@ export const useKeys = () => {
     whenever(logicAnd(space, notUsingInput), () => {
       togglePlayPause()
     })
-
     whenever(logicAnd(c, notUsingInput), () => {
       addRegion('comment')
     })
@@ -26,6 +27,6 @@ export const useKeys = () => {
 
 
 
-  return { keys }
+  return { setShortcutKeys }
 }
 
