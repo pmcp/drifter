@@ -1,3 +1,20 @@
+<template>
+
+      <UForm @submit.prevent="uploadMix" class="flex flex-row justify-between gap-2" >
+        <UInput
+          type="file"
+          size="sm"
+          icon="i-heroicons-folder"
+          accept="audio"
+          name="mix"
+          />
+        <UButton type="submit">
+          Upload
+        </UButton>
+      </UForm>
+
+</template>
+
 <script setup lang="ts">
 const { data: mixes, refresh } = await useFetch('/api/mixes')
 
@@ -22,20 +39,3 @@ async function deleteMix (pathname: string) {
   await refresh()
 }
 </script>
-
-<template>
-
-      <UForm @submit.prevent="uploadMix" class="flex flex-row justify-between gap-2" >
-        <UInput
-          type="file"
-          size="sm"
-          icon="i-heroicons-folder"
-          accept="audio"
-          name="mix"
-          />
-        <UButton type="submit">
-          Upload
-        </UButton>
-      </UForm>
-
-</template>

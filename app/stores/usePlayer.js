@@ -1,3 +1,5 @@
+import { defineStore } from 'pinia'
+
 import WaveSurfer from 'wavesurfer.js';
 import RegionsPlugin from 'wavesurfer.js/dist/plugins/regions.js';
 // import ZoomPlugin from 'wavesurfer.js/dist/plugins/zoom.esm.js'
@@ -6,34 +8,32 @@ import {computed} from "@vue/reactivity";
 
 const formatTime= (seconds) => [seconds / 60, seconds % 60].map((v) => `0${Math.floor(v)}`.slice(-2)).join(':')
 
-export const usePlayer = () => {
+
+export const usePlayerStore = defineStore("player", () => {
 
   const playerSrc = ref(null)
   const waveformRef = ref(null)
-  const player = useState('player', () => null)
-  const playerIsPlaying = useState('playerIsPlaying', () => false)
-  const playerIsReady = useState('playerIsReady', () => false)
-  const playerCurrentTime = useState('playerCurrentTime', () => 0)
-  const playerTotalDuration = useState('playerTotalDuration', () => 0)
-  const playerLoadingValue = useState('playerTotalDuration', () => 0)
-  const currentZoom = useState('currentZoom', () => 0)
-  const zoomStep = useState('zoomStep', () => 20)
-  const maxZoom = useState('maxZoom', () => 300)
-  const minZoom = useState('minZoom', () => 0)
-
-  const playerSettings = useState('playerSettings', () => {
-  })
-
+  const player = ref(null)
+  const playerIsPlaying = ref(false)
+  const playerIsReady = ref(false)
+  const playerCurrentTime = ref(0)
+  const playerTotalDuration = ref(0)
+  const playerLoadingValue = ref(0)
+  const currentZoom = ref(0)
+  const zoomStep = ref(20)
+  const maxZoom = ref(300)
+  const minZoom = ref(0)
+  const playerSettings = ref(null)
 
   const initPlayer = () => {
     if (player.value) return;
     console.info('✅ usePlayer - initPlayerinitPlayer')
 
-    if (!waveformRef.value) {
+    if (!waveformRef) {
       console.error('⛔ usePlayer - initPlayerinitPlayer: waveformRef is not valid');
       return
     }
-    if (!playerSrc.value) {
+    if (!playerSrc) {
       console.error('⛔ usePlayer - initPlayerinitPlayer: playerSrc is not set');
       return
     }
@@ -54,7 +54,7 @@ export const usePlayer = () => {
     }
 
     // create regionsPlugin
-    const {regions, updateRegionsList} = useRegions()
+    const {regions, updateRegionsList} = useRegionsStore()
 
     regions.value = RegionsPlugin.create();
 
@@ -100,22 +100,28 @@ export const usePlayer = () => {
     /** When the user clicks on the waveform */
     player.value.on('seeking', () => playerCurrentTime.value = player.value.getCurrentTime())
 
-    player.value.on('audioprocess', () => playerCurrentTime.value = player.value.getCurrentTime());
+    player.value.on('audioprocess', (event) => {
+      playerCurrentTime.value = player.value.getCurrentTime()
+    });
+
+    player.value.on('loading', (percent) => playerLoadingValue.value = percent)
+
 
     // TODO: move to useRegions
     regions.value.on('region-updated', updateRegionsList);
   }
 
   const destroyPlayer = () => {
-    if (!player.value) {
+    if (!player || !player.value) {
       console.error('⛔ usePlayer - destroyPlayer: no player set');
       return
     }
+
     player.value.destroy();
   }
 
   const togglePlayPause = () => {
-    if (!player.value) {
+    if (!player) {
       console.error('⛔ usePlayer - togglePlayPause: no player set');
       return
     }
@@ -136,11 +142,8 @@ export const usePlayer = () => {
       if(currentZoom.value <=0) return;
       currentZoom.value = currentZoom.value - zoomStep.value
     }
-
     player.value.zoom(currentZoom.value)
-
   }
-
 
 
   const playerCurrentTimeReadable = computed(() =>  formatTime(playerCurrentTime.value))
@@ -166,5 +169,5 @@ export const usePlayer = () => {
     playerLoadingValue,
     destroyPlayer
   }
-}
 
+})

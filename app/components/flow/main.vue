@@ -103,11 +103,18 @@ import { NodeToolbar } from '@vue-flow/node-toolbar'
 
 import { Handle, useHandleConnections, VueFlow, useVueFlow, Position, useNodesData,  } from '@vue-flow/core'
 
-const { nodes, updateNode } = useNodes()
-const { edges } = useEdges()
-const { setRegion, loadRegions } = useRegions()
+const NodesStore = useNodesStore()
+const { nodes } = storeToRefs(NodesStore)
+const { updateNode } = NodesStore
 
-const { player, playerIsReady, playerIsPlaying } = usePlayer()
+const EdgesStore = useEdgesStore()
+const { edges } = storeToRefs(EdgesStore)
+
+const { setRegion, loadRegions } = useRegionsStore()
+
+const PlayerStore = usePlayerStore()
+const { player, playerIsReady, playerIsPlaying } = storeToRefs(PlayerStore)
+
 const playRegion = (region) => {
   if(!playerIsReady.value) return;
   setRegion({

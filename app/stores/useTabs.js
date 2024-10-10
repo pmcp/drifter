@@ -1,11 +1,15 @@
-export const useTabs = () => {
-  const { types } = useItems()
+import { defineStore } from 'pinia'
 
 
-  const showTabs = useState('showTabs', () => [])
+export const useTabsStore = defineStore("tabs", () => {
 
+  const itemsStore = useItemsStore()
+  const {types } = storeToRefs(itemsStore)
 
-  const tabs = types.value.map(type => {
+  const showTabs = ref([])
+  const tabs = ref([null])
+
+  tabs.value = types.value.map(type => {
     return {
       key: type.id,
       // label: type.title,
@@ -18,8 +22,6 @@ export const useTabs = () => {
     selectedTab.value = index
     showTabs.value = true;
   }
-
-
 
   const tabsUi = {
     wrapper: 'relative space-y-2',
@@ -58,9 +60,10 @@ export const useTabs = () => {
 
   const route = useRoute()
   const router = useRouter()
+
   const selectedTab = computed({
     get () {
-      const index = tabs.findIndex((item) => item.label === route.query.tab)
+      const index = tabs.value.findIndex((item) => item.label === route.query.tab)
       if (index === -1) {
         return 0
       }
@@ -69,11 +72,10 @@ export const useTabs = () => {
     },
     set (value) {
       // Hash is specified here to prevent the page from scrolling to the top
-      router.replace({ query: { tab: tabs[value].label }, hash: '#control-tabs' })
+      router.replace({ query: { tab: tabs.value[value].label }, hash: '#control-tabs' })
     }
   })
 
+  return { tabs, tabsUi, showTabs, onTabClick, selectedTab }
 
-  return { tabs, tabsUi, showTabs, onTabClick }
-}
-
+})

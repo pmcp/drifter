@@ -1,10 +1,13 @@
 <template>
   <UButton :disabled="disabled" variant="ghost" @click="setZoom(direction)" class="flex flex-row justify-center items-center gap-2">
-    <span class="text-xs">{{ direction }}</span>
+    {{ direction }}
   </UButton>
 </template>
 <script setup>
-const { playerIsReady, currentZoom, maxZoom, minZoom, setZoom } = usePlayer()
+
+const PlayerStore = usePlayerStore()
+const { currentZoom, playerIsReady, playerIsPlaying, maxZoom, minZoom } = storeToRefs(PlayerStore)
+const { setZoom } = PlayerStore
 
 const props = defineProps({
   direction: {

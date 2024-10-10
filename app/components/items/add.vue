@@ -10,13 +10,14 @@
 
 </template>
 <script setup>
+const PlayerStore = usePlayerStore()
+const { playerIsReady } = storeToRefs(PlayerStore)
+
+const { addItem } = useItemsStore()
 
 const props = defineProps({
   type: {
     type: Object
   }
 })
-
-const { playerIsReady } = usePlayer()
-const { addItem } = useItems()
 </script>

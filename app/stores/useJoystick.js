@@ -1,12 +1,17 @@
-export const useJoystick = () => {
-  const { player, playerCurrentTime, playerTotalDuration, currentZoom } = usePlayer()
+import { defineStore } from 'pinia'
 
-  const joystickValue = useState('joystickValue', () => 0)
-  const canContinue = useState('canContinue', () => true)
-  const changeSpeed = useState('changeSpeed', () => 5000)
+export const useJoystickStore = defineStore("joystick", () => {
+
+  const PlayerStore = usePlayerStore()
+  const { player, playerCurrentTime, playerTotalDuration } = storeToRefs(PlayerStore)
+
+  const joystickValue = ref(0)
+  const canContinue = ref(true)
+  const changeSpeed = ref(5000)
+
   const { isActive, pause, resume } = useIntervalFn(() => moveJoystick(), 10, {immediate: false})
 
-  const setPlayerTime = (joystick: number) => {
+  const setPlayerTime = (joystick) => {
     const valueToAdd = 1 * joystick/changeSpeed.value
     if(playerCurrentTime.value >= playerTotalDuration - valueToAdd) return;
     if(!(playerCurrentTime.value >= 0)) return;
@@ -17,8 +22,6 @@ export const useJoystick = () => {
     setPlayerTime(joystickValue.value)
   }
 
-
-
   return { joystickValue, moveJoystick, canContinue, isActive, pause, resume, changeSpeed }
-}
 
+})

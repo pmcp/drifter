@@ -1,19 +1,19 @@
-export const useRegions = () => {
-  const { items } = useItems();
+import { defineStore } from 'pinia'
 
-  const regions = useState('regions', () => [])
+export const useRegionsStore = defineStore("regions", () => {
+  const { items } = useItemsStore();
 
-  const savedRegions = useState('savedRegions', () => [])
+  const regions = ref([])
+  const savedRegions = ref([])
 
   const loadRegions = () => {
     regions.value.clearRegions()
     for(const region of savedRegions.value) {
-      console.log('region', region)
       regions.value.addRegion(region)
     }
   }
 
-  const setRegion = (region: Object) => {
+  const setRegion = (region) => {
     if(region.key === 'sample' && regions.value.regions.length > 0) {
       savedRegions.value = regions.value.regions.map(r => ({
         start: r.start,
@@ -24,7 +24,6 @@ export const useRegions = () => {
       // Clear all regions
       regions.value.clearRegions()
     }
-    console.log('22222', region)
     return regions.value.addRegion(region)
   }
 
@@ -44,7 +43,7 @@ export const useRegions = () => {
     items.value.push({ id: newRegion.id, start, type: type.id, end });
   };
 
-  const { player } = usePlayer()
+  const { player } = usePlayerStore()
   const setRegionBound = (region, startOrEnd) => {
     if (player.value && regions.value) {
       const playerCurrentTime = player.value.getCurrentTime();
@@ -91,5 +90,5 @@ export const useRegions = () => {
   };
 
   return { regions, addRegion, setRegion, loadRegions, setRegionBound, removeRegion, updateRegionsList, updateRegionStart }
-}
 
+})

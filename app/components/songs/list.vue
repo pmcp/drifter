@@ -45,10 +45,19 @@
   </div>
 </template>
 <script setup>
-const { items } = useItems()
-const { nodes, addNode } = useNodes()
-const { playerIsReady, playerCurrentTime } = usePlayer()
-const { removeRegion, setRegionBound } = useRegions()
+
+const PlayerStore = usePlayerStore()
+const { playerCurrentTime, playerIsReady } = storeToRefs(PlayerStore)
+
+const ItemsStore = useItemsStore()
+const { items } = storeToRefs(ItemsStore)
+
+const NodesStore = useNodesStore()
+const { nodes } = storeToRefs(NodesStore)
+const { addNode } = NodesStore
+
+const { removeRegion, setRegionBound } = useRegionsStore()
+
 const songsList = computed(() => {
   const filteredRegions = items.value.filter(x => x.type === 'song')
   const sortedRegions = filteredRegions.sort((a, b) => a.start - b.start)

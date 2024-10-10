@@ -1,3 +1,19 @@
+<template>
+  <Panel position="top-right">
+    <div class="buttons">
+      <button title="save graph" @click="onSave">
+        <Icon name="save" />
+      </button>
+      <button title="restore graph" @click="onRestore">
+        <Icon name="restore" />
+      </button>
+      <button title="add random node" @click="onAdd">
+        <Icon name="add" />
+      </button>
+    </div>
+  </Panel>
+</template>
+
 <script setup>
 import { Panel, useVueFlow } from '@vue-flow/core'
 import Icon from './Icon.vue'
@@ -30,19 +46,3 @@ function onAdd() {
   addNodes([newNode])
 }
 </script>
-
-<template>
-  <Panel position="top-right">
-    <div class="buttons">
-      <button title="save graph" @click="onSave">
-        <Icon name="save" />
-      </button>
-      <button title="restore graph" @click="onRestore">
-        <Icon name="restore" />
-      </button>
-      <button title="add random node" @click="onAdd">
-        <Icon name="add" />
-      </button>
-    </div>
-  </Panel>
-</template>

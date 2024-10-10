@@ -25,8 +25,10 @@
 </template>
 
 <script setup>
-const { items } = useItems()
-const { removeRegion } = useRegions()
+const regionsStore = useRegionsStore()
+const { items } = storeToRefs(regionsStore)
+const { removeRegion } = useRegionsStore()
+
 const commentsList = computed(() => {
   const filteredRegions = items.value.filter(x => x.type === 'comment')
   const sortedRegions = filteredRegions.sort((a, b) => a.start - b.start)

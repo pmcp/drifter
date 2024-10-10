@@ -6,10 +6,7 @@
   </div>
 </template>
 <script setup>
-const {
-  player,
-  playerIsPlaying,
-  playerIsReady,
-} = usePlayer()
+const PlayerStore = usePlayerStore()
+const { player, playerIsReady, playerIsPlaying } = storeToRefs(PlayerStore)
 </script>
 

@@ -19,8 +19,12 @@
 </div>
 </template>
 <script setup>
-const { mixes } = useMixes()
-const { playerIsReady } = usePlayer()
-const { createEdge } = useEdges()
+const MixesStore = useMixesStore()
+const { mixes } = storeToRefs(MixesStore)
+
+const PlayerStore = usePlayerStore()
+const { playerIsReady } = storeToRefs(PlayerStore)
+
+const { createEdge } = useEdgesStore()
 const formatTime= (seconds) => [seconds / 60, seconds % 60].map((v) => `0${Math.floor(v)}`.slice(-2)).join(':')
 </script>

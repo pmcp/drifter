@@ -17,5 +17,10 @@
 </template>
 
 <script setup>
-const { tabs, tabsUi, showTabs, onTabClick, selectedTab } = useTabs()
+const TabsStore = useTabsStore()
+const { tabs, tabsUi, selectedTab, showTabs } = storeToRefs(TabsStore)
+const { onTabClick } = TabsStore
+
+
+
 </script>

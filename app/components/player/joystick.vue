@@ -15,9 +15,12 @@
   </div>
 </template>
 <script setup>
+const playerStore = usePlayerStore()
+const { playerIsReady, currentZoom } = storeToRefs(playerStore)
 
-const { playerIsReady, currentZoom } = usePlayer()
-const { joystickValue, canContinue, isActive, pause, resume, changeSpeed } = useJoystick()
+const joystickStore = useJoystickStore()
+const { joystickValue, canContinue, isActive } = storeToRefs(joystickStore)
+const { pause, resume, changeSpeed } = joystickStore
 
 const stopRunning= () => {
   canContinue.value = false;

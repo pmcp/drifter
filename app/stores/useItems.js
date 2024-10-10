@@ -1,8 +1,8 @@
-export const useItems = () => {
+import { defineStore } from 'pinia'
 
-
-  const items = useState('items', () => [])
-  const types = useState('types', () => [])
+export const useItemsStore = defineStore("items", () => {
+  const items = ref([])
+  const types = ref([])
 
   types.value = [
     {
@@ -47,10 +47,10 @@ export const useItems = () => {
     }
   ]
 
-
   const addItem = (type) => {
     console.log('addItem', type)
   }
-  return { types, items }
-}
+  return { types, items, addItem }
+
+})
 

@@ -1,6 +1,8 @@
+import { defineStore } from 'pinia'
 
-export const useKeys = () => {
-  const { togglePlayPause } = usePlayer()
+
+export const useKeysStore = defineStore("keys", () => {
+  const { togglePlayPause } = usePlayerStore()
   // Only use shortcuts if not using inputs
   // Vue Use Active Element
   const activeElement = useActiveElement()
@@ -22,11 +24,6 @@ export const useKeys = () => {
     })
 
   }
-
-  // Only use space if not using inputs
-
-
-
   return { setShortcutKeys }
-}
 
+})
