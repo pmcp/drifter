@@ -2,6 +2,7 @@
   <div>
     <div class="joystick-container">
       <URange
+        :disabled="!playerIsReady"
         type="range"
         id="joystick"
         :min="-100"
@@ -14,7 +15,9 @@
   </div>
 </template>
 <script setup>
-const { joystickValue, moveJoystick, canContinue, isActive, pause, resume } = useJoystick()
+
+const { playerIsReady } = usePlayer()
+const { joystickValue, canContinue, isActive, pause, resume } = useJoystick()
 
 const stopRunning= () => {
   canContinue.value = false;

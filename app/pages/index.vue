@@ -21,13 +21,20 @@
           <player-wavesurfer/>
           <div class="grid grid-cols-3 gap-2 w-full">
             <div class="justify-self-start flex flex-row gap-2 items-center justify-center">
-              <player-controls />
+              <player-controls-play-pause />
               <player-duration class="hidden md:block"/>
             </div>
             <action-buttons/>
-            <player-joystick class="col-span-3" />
+            <div class="flex flex-row gap-2 items-center justify-center col-span-3">
+              <player-controls-zoom direction="-"/>
+              <player-joystick  class="flex-grow"/>
+              <player-controls-zoom direction="+"/>
+            </div>
           </div>
         </div>
       </UCard>
     </div>
 </template>
+<script setup lang="ts">
+import Zoom from "#build/app/components/player/controls/zoom.vue";
+</script>
