@@ -16,8 +16,8 @@
 </template>
 <script setup>
 
-const { playerIsReady } = usePlayer()
-const { joystickValue, canContinue, isActive, pause, resume } = useJoystick()
+const { playerIsReady, currentZoom } = usePlayer()
+const { joystickValue, canContinue, isActive, pause, resume, changeSpeed } = useJoystick()
 
 const stopRunning= () => {
   canContinue.value = false;

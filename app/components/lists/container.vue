@@ -1,5 +1,5 @@
 <template>
-  <UTabs @change="onTabClick" :ui="tabsUi" :items="tabs" class="w-full h-10 overflow-hidden" :class="showLists ? 'h-96' : ''" v-model="selectedTab" >
+  <UTabs @change="onTabClick" :ui="tabsUi" :items="tabs" class="w-full h-10 overflow-hidden" :class="showTabs ? 'h-96' : ''" v-model="selectedTab" >
     <template #item="{ item }">
       <div class="h-96 overflow-scroll flex flex-col gap-2 pointer-events-auto">
         <comments-list v-if="item.key === 'comments'"/>
@@ -10,12 +10,12 @@
   </UTabs>
 
   <div class="absolute bottom-0 left-0 w-full flex flex-col justify-end items-center">
-    <UButton @click="showLists = !showLists"  variant="ghost" color="black" class="flex flex-row justify-center items-center gap-2 text-gray-300">
+    <UButton @click="showTabs = !showTabs"  variant="ghost" color="black" class="flex flex-row justify-center items-center gap-2 text-gray-300">
       ___
     </UButton>
   </div>
 </template>
 
 <script setup>
-const { tabs, tabsUi, showLists, onTabClick, selectedTab } = useLists()
+const { tabs, tabsUi, showTabs, onTabClick, selectedTab } = useTabs()
 </script>

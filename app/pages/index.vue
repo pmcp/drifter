@@ -15,26 +15,40 @@
     </UCard>
   </div>
 
-    <div class="absolute bottom-4 left-0 w-full p-4">
-      <UCard class=" pointer-events-auto">
-        <div class="flex flex-col gap-2">
-          <player-wavesurfer/>
-          <div class="grid grid-cols-3 gap-2 w-full">
-            <div class="justify-self-start flex flex-row gap-2 items-center justify-center">
-              <player-controls-play-pause />
-              <player-duration class="hidden md:block"/>
-            </div>
-            <action-buttons/>
-            <div class="flex flex-row gap-2 items-center justify-center col-span-3">
-              <player-controls-zoom direction="-"/>
-              <player-joystick  class="flex-grow"/>
-              <player-controls-zoom direction="+"/>
-            </div>
+    <div class="absolute bottom-4 left-0 w-full p-4 pointer-events-auto">
+      <UCard>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div class="col-span-2 sm:col-span-3">
+            <player-wavesurfer />
+          </div>
+
+
+          <div class="col-span-1 flex flex-row gap-2 grid-cols-1">
+            <items-add v-for="type in types" :key="type.id" :type="type"/>
+          </div>
+
+          <player-duration class="col-span-1 hidden md:block justify-self-center"/>
+
+          <div class="col-span-1 justify-self-end flex flex-row gap-2 items-center justify-center">
+
+            <player-controls-play-pause />
+          </div>
+
+
+
+
+
+
+          <div class="flex flex-row gap-2 items-center justify-center col-span-3">
+            <player-controls-zoom direction="-"/>
+            <player-joystick  class="flex-grow"/>
+            <player-controls-zoom direction="+"/>
           </div>
         </div>
+
       </UCard>
     </div>
 </template>
 <script setup lang="ts">
-import Zoom from "#build/app/components/player/controls/zoom.vue";
+const { types } = useItems()
 </script>

@@ -1,36 +1,21 @@
-export const useLists = () => {
+export const useTabs = () => {
+  const { types } = useItems()
 
-  const tabs = [{
-    key: 'comments',
-    // label: 'Comments',
-    icon: 'i-heroicons-chat-bubble-bottom-center-text',
-    // description: 'Your comments'
-  }, {
-    key: 'songs',
-    // label: 'Songs',
-    icon: 'i-heroicons-musical-note',
-    // description: 'Your songs'
-  },
-    {
-      key: 'mixes',
-      // label: 'Mixes',
-      icon: 'i-heroicons-arrow-path-rounded-square',
-      // description: 'Your songs'
+  const tabs = types.value.map(type => {
+    return {
+      key: type.id,
+      // label: type.title,
+      icon: type.icon,
+      description: type.description
     }
-  ]
+  })
 
   const onTabClick = (index) => {
     selectedTab.value = index
-    console.log('onTabClick', index, selectedTab.value)
-    console.log(index === selectedTab.value)
-    // if(index === selectedTab.value) showLists.value = !showLists.value; return;
-    showLists.value = true;
+    showTabs.value = true;
   }
 
-
-
-  const showLists= ref(false)
-
+  const showTabs= ref(false)
 
   const tabsUi = {
     wrapper: 'relative space-y-2',
@@ -67,9 +52,6 @@ export const useLists = () => {
     },
   }
 
-
-
-
   const route = useRoute()
   const router = useRouter()
   const selectedTab = computed({
@@ -88,8 +70,6 @@ export const useLists = () => {
   })
 
 
-
-
-  return { tabs, tabsUi, showLists, onTabClick }
+  return { tabs, tabsUi, showTabs, onTabClick }
 }
 
