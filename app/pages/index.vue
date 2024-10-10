@@ -22,22 +22,17 @@
             <player-wavesurfer />
           </div>
 
-
           <div class="col-span-1 flex flex-row gap-2 grid-cols-1">
-            <items-add v-for="type in types" :key="type.id" :type="type"/>
+            <items-add v-for="type in types" :key="type.key" :type="type">
+              {{ type.title}}
+            </items-add>
           </div>
 
           <player-duration class="col-span-1 hidden md:block justify-self-center"/>
 
           <div class="col-span-1 justify-self-end flex flex-row gap-2 items-center justify-center">
-
             <player-controls-play-pause />
           </div>
-
-
-
-
-
 
           <div class="flex flex-row gap-2 items-center justify-center col-span-3">
             <player-controls-zoom direction="-"/>

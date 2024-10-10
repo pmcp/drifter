@@ -1,59 +1,9 @@
 export const useRegions = () => {
-  const regionTypes = {
-    comment: {
-      color: 'rgba(255, 199, 0, 0.8)',
-      options: {
-        resize: false,
-        drag: true
-      }
-    },
-    song: {
-      color: 'rgba(51, 255, 224, 0.5)',
-      options: {
-        resize: true,
-        drag: true
-      }
-    },
-    node: {
-      color: 'rgba(230, 0, 0, 0.5)',
-      options: {
-        resize: false,
-        drag: false
-      }
-    }
-  }
+  const { items } = useItems();
 
   const regions = useState('regions', () => [])
 
   const savedRegions = useState('savedRegions', () => [])
-
-
-  const setRegion = (region: Object) => {
-    console.log('setRegion', region)
-    if(region.type === 'node' && regions.value.regions.length > 0) {
-      // Save the regions
-      savedRegions.value = regions.value.regions.map(r => ({
-        start: r.start,
-        end: r.end,
-        color: r.color,
-        id: r.id,
-      }))
-      console.log('savedRegions', savedRegions.value)
-      // Clear all regions
-      regions.value.clearRegions()
-    }
-
-    const theRegion = {
-      start:region.start,
-      end: region.end,
-      color: regionTypes[region.type].color,
-      content: 'test',
-      ...regionTypes[region.type].options
-    }
-
-    return regions.value.addRegion(theRegion)
-  }
-
 
   const loadRegions = () => {
     regions.value.clearRegions()
@@ -63,21 +13,35 @@ export const useRegions = () => {
     }
   }
 
+  const setRegion = (region: Object) => {
+    if(region.key === 'sample' && regions.value.regions.length > 0) {
+      savedRegions.value = regions.value.regions.map(r => ({
+        start: r.start,
+        end: r.end,
+        color: r.color,
+        id: r.id,
+      }))
+      // Clear all regions
+      regions.value.clearRegions()
+    }
+    console.log('22222', region)
+    return regions.value.addRegion(region)
+  }
 
-  const { items } = useItems()
   const addRegion = (type) => {
     const start = player.value.getCurrentTime()
     let end;
-    if(type === 'song') end = start + 10
-    console.log('adding region', type, start, end)
+    if(type.regionType === 'range') end = start + 10
     const newRegion = setRegion({
       start,
       end,
-      type: type,
-      content: `New ${type}`
+      type: type.key,
+      // content: `New ${type.singular}`,
+      color: type.color,
+      resize: type.resize,
+      drag: type.drag,
     })
-    items.value.push({ id: newRegion.id, start, type, end });
-
+    items.value.push({ id: newRegion.id, start, type: type.id, end });
   };
 
   const { player } = usePlayer()
@@ -92,14 +56,11 @@ export const useRegions = () => {
     }
   };
 
-
   const removeRegion = (region) => {
     if (regions.value) {
       // Remove region from wavesurfer
       const regionToRemove = regions.value.getRegions().find(r => r.id === region.id);
-      if (regionToRemove) {
-        regionToRemove.remove();
-      }
+      if (regionToRemove) regionToRemove.remove();
       // Remove region from list
       items.value = items.value.filter(r => r.id !== region.id);
     }
@@ -116,7 +77,6 @@ export const useRegions = () => {
     const [minutes, seconds] = minutesSeconds.split(':');
     return parseInt(minutes) * 60 + parseInt(seconds) + parseInt(milliseconds) / 1000;
   };
-
 
   const updateRegionStart = (region, newStartTime) => {
 

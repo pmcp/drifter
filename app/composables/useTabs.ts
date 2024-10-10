@@ -1,6 +1,10 @@
 export const useTabs = () => {
   const { types } = useItems()
 
+
+  const showTabs = useState('showTabs', () => [])
+
+
   const tabs = types.value.map(type => {
     return {
       key: type.id,
@@ -15,7 +19,7 @@ export const useTabs = () => {
     showTabs.value = true;
   }
 
-  const showTabs= ref(false)
+
 
   const tabsUi = {
     wrapper: 'relative space-y-2',

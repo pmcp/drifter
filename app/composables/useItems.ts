@@ -1,32 +1,56 @@
 export const useItems = () => {
+
+
+  const items = useState('items', () => [])
   const types = useState('types', () => [])
 
   types.value = [
     {
-      id: 'samples',
+      key: 'sample',
       title: 'samples',
+      singular: 'sample',
+      regionType: 'range',
       icon: 'i-heroicons-puzzle-piece',
-      description: 'Moments you selected from your sets.'
+      description: 'Moments you selected from your sets.',
+      color: 'rgba(230, 0, 0, 0.5)',
+      resize: true,
+      drag: true
     },
     {
-      id: 'notes',
-      title: 'comments',
+      key: 'note',
+      title: 'notes',
+      singular: 'note',
+      regionType: 'marker',
       icon: 'i-heroicons-chat-bubble-bottom-center-text',
-      description: 'Notes and comments you added to your sets.'
+      description: 'Notes and comments you added to your sets.',
+      color: 'rgba(255, 199, 0, 0.8)',
+      resize: true,
+      drag: true
     }, {
-      id: 'tracks',
+      key: 'track',
       title: 'tracks',
+      singular: 'track',
+      regionType: 'marker',
       icon: 'i-heroicons-musical-note',
-      description: 'Tracks that appear in your sets.'
+      description: 'Tracks that appear in your sets.',
+      color: 'rgba(51, 255, 224, 0.5)',
+      resize: false,
+      drag: true
     },
     {
-      id: 'sets',
-      title: 'mixes',
+      type: 'set',
+      title: 'sets',
+      singular: 'set',
+      regionType: 'marker',
       icon: 'i-heroicons-radio',
       description: 'Your sets.'
     }
   ]
 
-  return { types }
+
+  const addItem = (type) => {
+    console.log('addItem', type)
+  }
+  return { types, items }
 }
 
