@@ -7,27 +7,29 @@
         :min="-100"
         :max="100"
         v-model="joystickValue"
-
         @change="stopRunning"
        />
     </div>
   </div>
 </template>
 <script setup>
+const { joystickValue, moveJoystick, canContinue, isActive, pause, resume } = useJoystick()
 
-const { joystickValue, moveJoystick } = useJoystick()
-const { isActive, pause, resume } = useIntervalFn(() => moveJoystick(), 10, {immediate: false})
-
-const stopRunning= () => { pause(); joystickValue.value = 0; }
-
+const stopRunning= () => {
+  canContinue.value = false;
+  joystickValue.value = 0;
+}
 
 onMounted(() => {
+  joystickValue.value = 0;
+  canContinue.value = true;
   watch(joystickValue, async (newValue, oldValue) => {
+    if(!canContinue.value) return;
     if(isActive.value) return;
     resume()
   })
 });
 
-joystickValue.value = 0;
+
 
 </script>
