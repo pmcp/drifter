@@ -15,13 +15,11 @@
 </template>
 <script setup>
 
-const { player, playerIsPlaying, playerIsReady, playerCurrentTime, playerTotalDuration } = usePlayer()
 const { joystickValue, moveJoystick } = useJoystick()
 const { isActive, pause, resume } = useIntervalFn(() => moveJoystick(), 10, {immediate: false})
 
 const stopRunning= () => { pause(); joystickValue.value = 0; }
 
-joystickValue.value = 0;
 
 onMounted(() => {
   watch(joystickValue, async (newValue, oldValue) => {
@@ -29,5 +27,7 @@ onMounted(() => {
     resume()
   })
 });
+
+joystickValue.value = 0;
 
 </script>
