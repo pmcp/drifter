@@ -9,8 +9,10 @@ export const useRegionsStore = defineStore("regions", () => {
   const savedRegions = ref([])
 
   const ItemsStore = useItemsStore()
-  const { allItems } = storeToRefs(ItemsStore)
+  const { allItems, types } = storeToRefs(ItemsStore)
 
+  const TabsStore = useTabsStore()
+  const { showTabs, selectedTab } = storeToRefs(TabsStore)
 
 
   const loadRegions = () => {
@@ -52,6 +54,11 @@ export const useRegionsStore = defineStore("regions", () => {
     })
 
     allItems.value.push({ id: newRegion.id, start, type: type.id, end });
+
+    // Show tabs at correct list
+    const index = types.value.findIndex(x => x.id === type.id);
+    selectedTab.value = index
+    showTabs.value = true;
   };
 
 

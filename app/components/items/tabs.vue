@@ -1,4 +1,5 @@
 <template>
+  Selected tab: {{ selectedTab}}
   <UTabs @change="onTabClick" :ui="tabsUi" :items="tabs" class="w-full h-10 overflow-hidden" :class="showTabs ? 'h-96' : ''" v-model="selectedTab" >
     <template #item="{ item }">
       <div class="h-96 overflow-scroll flex flex-col gap-2 pointer-events-auto">

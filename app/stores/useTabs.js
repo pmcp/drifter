@@ -6,8 +6,9 @@ export const useTabsStore = defineStore("tabs", () => {
   const itemsStore = useItemsStore()
   const {types } = storeToRefs(itemsStore)
 
-  const showTabs = ref([])
+  const showTabs = ref(false)
   const tabs = ref([null])
+  const selectedTab = ref(0)
 
   tabs.value = types.value.map(type => {
     return {
@@ -19,6 +20,7 @@ export const useTabsStore = defineStore("tabs", () => {
   })
 
   const onTabClick = (index) => {
+    console.log(index)
     selectedTab.value = index
     showTabs.value = true;
   }
@@ -61,20 +63,20 @@ export const useTabsStore = defineStore("tabs", () => {
   const route = useRoute()
   const router = useRouter()
 
-  const selectedTab = computed({
-    get () {
-      const index = tabs.value.findIndex((item) => item.label === route.query.tab)
-      if (index === -1) {
-        return 0
-      }
-
-      return index
-    },
-    set (value) {
-      // Hash is specified here to prevent the page from scrolling to the top
-      router.replace({ query: { tab: tabs.value[value].label }, hash: '#control-tabs' })
-    }
-  })
+  // const selectedTab = computed({
+  //   get () {
+  //     const index = tabs.value.findIndex((item) => item.label === route.query.tab)
+  //     if (index === -1) {
+  //       return 0
+  //     }
+  //
+  //     return index
+  //   },
+  //   set (value) {
+  //     // Hash is specified here to prevent the page from scrolling to the top
+  //     router.replace({ query: { tab: tabs.value[value].label }, hash: '#control-tabs' })
+  //   }
+  // })
 
   return { tabs, tabsUi, showTabs, onTabClick, selectedTab }
 

@@ -1,21 +1,7 @@
 <template>
 
-  <div v-if="items?.length" v-for="(item) in items" :key="`lists-${item.id}`">
-
-    <div v-if="item.type === 'note'" class="flex flex-row gap-2 items-center justify-between mb-2 p-2">
-      <UInput v-model="item.content" placeholder="Comment" class="flex-grow" />
-      <UButton
-        icon="i-heroicons-trash"
-        size="sm"
-        color="primary"
-        variant="outline"
-        :trailing="false"
-        @click="removeRegion(item)"
-      />
-    </div>
-
-
-
+  <div v-if="items?.length">
+    <items-single :item="item" v-for="(item) in items" :key="`lists-${item.id}`"/>
   </div>
   <div v-else class="h-full w-full flex flex-col items-center justify-center">
     <span class="italic font-extralight">No {{ typeObject.title }} yet</span>
