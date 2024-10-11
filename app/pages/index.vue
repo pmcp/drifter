@@ -5,18 +5,18 @@
     </client-only>
   </div>
 
-  <div class="absolute bottom-0 left-4 pointer-events-auto">
-    <ui-darkmode />
+  <div class="absolute bottom-0 left-4 pointer-events-none">
+    <ui-darkmode class="pointer-events-auto"/>
   </div>
 
-  <div class="ointer-events-auto absolute top-0 left-0 w-full p-4 md:p-8 flex flex-col items-center">
-    <UCard class="w-full max-w-[60rem]">
+  <div class=" absolute top-0 left-0 w-full p-4 md:p-8 flex flex-col items-center pointer-events-none">
+    <UCard class="w-full max-w-[60rem] pointer-events-auto">
       <items-tabs />
     </UCard>
   </div>
 
-  <div class="pointer-events-auto absolute bottom-4 left-0 w-full p-4 flex flex-col items-center ">
-    <UCard class="max-w-[60rem]">
+  <div class="pointer-events-none absolute bottom-4 left-0 w-full p-4 flex flex-col items-center ">
+    <UCard class="max-w-[60rem] pointer-events-auto">
       <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
         <div class="col-span-3 sm:col-span-3">
           <player-wavesurfer />

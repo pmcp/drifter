@@ -11,7 +11,10 @@
     </NodeToolbar>
 
     <template #node-sample="nodeProps">
+      <Handle type="source" position="right" />
       <flow-node :item="nodeProps" :active="activeItemId === nodeProps.id" @click="setActiveItemId(nodeProps.id)"></flow-node>
+      <Handle type="target" position="left" />
+
     </template>
   </VueFlow>
   </div>
