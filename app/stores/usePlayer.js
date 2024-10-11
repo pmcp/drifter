@@ -8,7 +8,6 @@ import {computed} from "@vue/reactivity";
 
 const formatTime= (seconds) => [seconds / 60, seconds % 60].map((v) => `0${Math.floor(v)}`.slice(-2)).join(':')
 
-
 export const usePlayerStore = defineStore("player", () => {
 
   const playerSrc = ref(null)
@@ -54,7 +53,9 @@ export const usePlayerStore = defineStore("player", () => {
     }
 
     // create regionsPlugin
-    const {regions, updateRegionsList} = useRegionsStore()
+    const RegionsStore = useRegionsStore()
+    const { regions } = storeToRefs(RegionsStore)
+    const { updateRegionsList } = useRegionsStore()
 
     regions.value = RegionsPlugin.create();
 

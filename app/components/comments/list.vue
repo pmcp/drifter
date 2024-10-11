@@ -26,11 +26,11 @@
 
 <script setup>
 const regionsStore = useRegionsStore()
-const { items } = storeToRefs(regionsStore)
+const { allItems } = storeToRefs(regionsStore)
 const { removeRegion } = useRegionsStore()
 
 const commentsList = computed(() => {
-  const filteredRegions = items.value.filter(x => x.type === 'comment')
+  const filteredRegions = allItems.value.filter(x => x.type === 'comment')
   const sortedRegions = filteredRegions.sort((a, b) => a.start - b.start)
   return sortedRegions
 })

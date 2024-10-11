@@ -1,6 +1,6 @@
 <template>
   <UTooltip :text="type.title" :shortcuts="['⌘', 'O']" :popper="{ placement: 'top', arrow: true, offsetDistance: 8 }">
-    <UButton variant="soft"  @click="addItem(type)" :disabled="!playerIsReady" class="flex flex-row justify-center" :icon="type.icon" >
+    <UButton variant="soft"  @click="addRegion(type)" :disabled="!playerIsReady" class="flex flex-row justify-center" :icon="type.icon" >
       <span class="hidden lg:block">
         <slot></slot>
       </span>
@@ -13,7 +13,7 @@
 const PlayerStore = usePlayerStore()
 const { playerIsReady } = storeToRefs(PlayerStore)
 
-const { addItem } = useItemsStore()
+const { addRegion } = useRegionsStore()
 
 const props = defineProps({
   type: {

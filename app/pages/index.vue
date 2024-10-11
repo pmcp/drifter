@@ -1,5 +1,6 @@
 <template>
   <div class="absolute top-0 left-0 w-full h-full">
+
     <client-only>
       <FlowMain class="h-screen w-screen"/>
     </client-only>
@@ -50,5 +51,5 @@
 </template>
 <script setup>
 const ItemsStore = useItemsStore()
-const { types } = storeToRefs(ItemsStore)
+const { types, allItems } = storeToRefs(ItemsStore)
 </script>

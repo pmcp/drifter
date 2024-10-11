@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 
 export const useItemsStore = defineStore("items", () => {
-  const items = ref([])
+  const allItems = ref([])
   const types = ref([])
 
   types.value = [
@@ -47,10 +47,6 @@ export const useItemsStore = defineStore("items", () => {
     }
   ]
 
-  const addItem = (type) => {
-    console.log('addItem', type)
-  }
-  return { types, items, addItem }
-
+  return { types, allItems }
 })
 

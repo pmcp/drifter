@@ -1,10 +1,17 @@
 import { defineStore } from 'pinia'
 
 export const useRegionsStore = defineStore("regions", () => {
-  const { items } = useItemsStore();
+
+  const PlayerStore = usePlayerStore()
+  const { player } = storeToRefs(PlayerStore)
 
   const regions = ref([])
   const savedRegions = ref([])
+
+  const ItemsStore = useItemsStore()
+  const { allItems } = storeToRefs(ItemsStore)
+
+
 
   const loadRegions = () => {
     regions.value.clearRegions()
@@ -12,6 +19,8 @@ export const useRegionsStore = defineStore("regions", () => {
       regions.value.addRegion(region)
     }
   }
+
+
 
   const setRegion = (region) => {
     if(region.key === 'sample' && regions.value.regions.length > 0) {
@@ -27,6 +36,7 @@ export const useRegionsStore = defineStore("regions", () => {
     return regions.value.addRegion(region)
   }
 
+// TODO: Make addRegion async so it can return
   const addRegion = (type) => {
     const start = player.value.getCurrentTime()
     let end;
@@ -40,10 +50,10 @@ export const useRegionsStore = defineStore("regions", () => {
       resize: type.resize,
       drag: type.drag,
     })
-    items.value.push({ id: newRegion.id, start, type: type.id, end });
+    allItems.value.push({ id: newRegion.id, start, type: type.id, end });
   };
 
-  const { player } = usePlayerStore()
+
   const setRegionBound = (region, startOrEnd) => {
     if (player.value && regions.value) {
       const playerCurrentTime = player.value.getCurrentTime();
@@ -61,14 +71,14 @@ export const useRegionsStore = defineStore("regions", () => {
       const regionToRemove = regions.value.getRegions().find(r => r.id === region.id);
       if (regionToRemove) regionToRemove.remove();
       // Remove region from list
-      items.value = items.value.filter(r => r.id !== region.id);
+      allItems.value = allItems.value.filter(r => r.id !== region.id);
     }
   };
 
 
   const updateRegionsList = (region) => {
-    items.value.find(r => r.id === region.id).start = region.start;
-    items.value.find(r => r.id === region.id).end = region.end;
+    allItems.value.find(r => r.id === region.id).start = region.start;
+    allItems.value.find(r => r.id === region.id).end = region.end;
   }
 
   const parseTime = (timeString) => {
