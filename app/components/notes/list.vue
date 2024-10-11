@@ -1,6 +1,7 @@
 <template>
   <div class="flex flex-col gap-4 h-full">
-  <div v-if="commentsList?.length" v-for="(region, index) in commentsList" :key="region.id">
+
+  <div v-if="notesList?.length" v-for="(region, index) in commentsList" :key="region.id">
 
       <div class="flex flex-row gap-2 items-center justify-between mb-2">
         <UInput v-model="region.content" placeholder="Comment" class="flex-grow" />
@@ -29,7 +30,7 @@ const regionsStore = useRegionsStore()
 const { allItems } = storeToRefs(regionsStore)
 const { removeRegion } = useRegionsStore()
 
-const commentsList = computed(() => {
+const notesList = computed(() => {
   const filteredRegions = allItems.value.filter(x => x.type === 'comment')
   const sortedRegions = filteredRegions.sort((a, b) => a.start - b.start)
   return sortedRegions

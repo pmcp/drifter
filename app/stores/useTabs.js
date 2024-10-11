@@ -11,7 +11,7 @@ export const useTabsStore = defineStore("tabs", () => {
 
   tabs.value = types.value.map(type => {
     return {
-      key: type.id,
+      type: type.id,
       // label: type.title,
       icon: type.icon,
       description: type.description

@@ -2,9 +2,10 @@
   <UTabs @change="onTabClick" :ui="tabsUi" :items="tabs" class="w-full h-10 overflow-hidden" :class="showTabs ? 'h-96' : ''" v-model="selectedTab" >
     <template #item="{ item }">
       <div class="h-96 overflow-scroll flex flex-col gap-2 pointer-events-auto">
-        <comments-list v-if="item.key === 'comments'"/>
-        <songs-list v-if="item.key === 'songs'" />
-        <mixes-list v-if="item.key === 'mixes'" />
+        <items-list :type="item.type"/>
+<!--        <notes-list v-if="item.key === 'comments'"/>-->
+<!--        <songs-list v-if="item.key === 'songs'" />-->
+<!--        <mixes-list v-if="item.key === 'mixes'" />-->
       </div>
     </template>
   </UTabs>

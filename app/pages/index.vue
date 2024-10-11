@@ -12,7 +12,7 @@
 
   <div class="absolute h-screen top-0 left-0 w-full p-4 md:p-8 pointer-events-none">
     <UCard class="pointer-events-auto relative">
-      <lists-tabs />
+      <items-tabs />
     </UCard>
   </div>
 
@@ -24,7 +24,7 @@
         </div>
 
         <div class="col-span-1 flex flex-row gap-2 grid-cols-1">
-          <items-add v-for="type in types" :key="type.key" :type="type">
+          <items-add v-for="type in types" :key="type.id" :type="type">
             {{ type.title}}
           </items-add>
         </div>

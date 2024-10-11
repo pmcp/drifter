@@ -44,12 +44,13 @@ export const useRegionsStore = defineStore("regions", () => {
     const newRegion = setRegion({
       start,
       end,
-      type: type.key,
+      type: type.id,
       // content: `New ${type.singular}`,
       color: type.color,
       resize: type.resize,
       drag: type.drag,
     })
+
     allItems.value.push({ id: newRegion.id, start, type: type.id, end });
   };
 
