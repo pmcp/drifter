@@ -1,5 +1,5 @@
 <template>
-  <div v-if="items?.length">
+  <div v-if="items?.length" class="flex flex-col gap-2 p-1">
     <items-single
       v-for="(item) in items"
       :key="`lists-${item.id}`"

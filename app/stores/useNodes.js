@@ -2,8 +2,8 @@ import { defineStore } from 'pinia'
 export const useNodesStore = defineStore("nodes", () => {
 
   const nodes = ref([])
-  const addNode = (node) => {
-    console.log('adding node', node, nodes.value)
+
+  const addToNodes = (node) => {
     // If node already exists, update it
     const index = nodes.value.findIndex(n => n.id === node.id)
     if (index > -1) {
@@ -33,6 +33,6 @@ export const useNodesStore = defineStore("nodes", () => {
   }
 
 
-  return { nodes, addNode, updateNode }
+  return { nodes, addToNodes, updateNode }
 
 })

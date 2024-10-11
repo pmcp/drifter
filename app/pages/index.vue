@@ -9,14 +9,14 @@
     <ui-darkmode />
   </div>
 
-  <div class="absolute h-screen top-0 left-0 w-full p-4 md:p-8 pointer-events-none">
-    <UCard class="pointer-events-auto relative">
+  <div class="ointer-events-auto absolute top-0 left-0 w-full p-4 md:p-8 flex flex-col items-center">
+    <UCard class="w-full max-w-[60rem]">
       <items-tabs />
     </UCard>
   </div>
 
-  <div class="absolute bottom-4 left-0 w-full p-4 pointer-events-auto">
-    <UCard>
+  <div class="pointer-events-auto absolute bottom-4 left-0 w-full p-4 flex flex-col items-center ">
+    <UCard class="max-w-[60rem]">
       <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
         <div class="col-span-3 sm:col-span-3">
           <player-wavesurfer />

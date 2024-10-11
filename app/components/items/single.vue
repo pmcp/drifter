@@ -1,6 +1,6 @@
 <template>
   <!-- NOTE: START-->
-  <div v-if="item.type === 'note'" class="flex flex-row gap-2 items-center justify-between mb-2 p-2">
+  <div v-if="item.type === 'note'" class="flex flex-row gap-2 items-center justify-between">
     <UInput v-model="item.content" placeholder="Comment" class="flex-grow" />
     <UButton
       icon="i-heroicons-trash"
@@ -16,8 +16,8 @@
 
 
   <!-- SAMPLE: START -->
-  <div v-else-if="item.type === 'sample'" class="flex flex-col gap-2">
-    <div class="flex flex-row gap-2 items-center mb-2">
+  <UCard v-else-if="item.type === 'sample'" :ui="ui">
+    <div class="flex flex-row gap-2 items-center">
       <UInput v-model="item.title" placeholder="Title" class="flex-grow"/>
       <UButton
         icon="i-heroicons-trash"
@@ -27,11 +27,16 @@
         :trailing="false"
         @click="removeRegion(item)"
       />
+      <UButton
+        icon="i-heroicons-arrow-trending-down"
+        size="sm"
+        color="primary"
+        variant="outline"
+        :trailing="false"
+        @click="addToNodes(item)"
+      />
     </div>
-    <div v-if="active">
-
-    </div>
-  </div>
+  </UCard>
   <!-- SAMPLE: END -->
 
 
@@ -65,4 +70,31 @@ const props = defineProps({
 })
 
 const { removeRegion } = useRegionsStore()
+const { addToNodes } = useNodesStore()
+
+const ui = computed(() => {
+  return {
+    base: '',
+    background: 'bg-white dark:bg-gray-900',
+    divide: 'divide-y divide-gray-200 dark:divide-gray-800',
+    ring: `ring-1 ring-gray-200 dark:ring-gray-800 ${props.active ? 'ring-primary-500' : ''}`,
+    rounded: 'rounded-lg',
+    shadow: 'shadow',
+    body: {
+      base: '',
+      background: '',
+      padding: 'px-4 py-5 sm:p-6',
+    },
+    header: {
+      base: '',
+      background: '',
+      padding: 'px-4 py-5 sm:px-6',
+    },
+    footer: {
+      base: '',
+      background: '',
+      padding: 'px-4 py-4 sm:px-6',
+    },
+  }
+})
 </script>

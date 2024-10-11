@@ -56,17 +56,22 @@ export const useItemsStore = defineStore("items", () => {
 
   const addToItemsAndMakeActive = (item) => {
     allItems.value.push({ id: item.id, start: item.start, type: item.type, end: item.end });
-    activeItemId.value = item.id
+    setActiveItemId(item.id)
   }
 
 
   const removeFromItemsAndDisactivate = (itemId) => {
     allItems.value = allItems.value.filter(item => item.id !== itemId);
-    activeItemId.value = null
+    setActiveItemId(null)
+
   }
 
   const activeItem = computed(() => allItems.value.filter(item => item.id === activeItemId.value))
 
-  return { types, allItems, addToItemsAndMakeActive, removeFromItemsAndDisactivate, activeItemId, activeItem}
+  const setActiveItemId = (itemId) => {
+    activeItemId.value = itemId
+  }
+
+  return { types, allItems, addToItemsAndMakeActive, removeFromItemsAndDisactivate, activeItemId, activeItem, setActiveItemId}
 })
 
