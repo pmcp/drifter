@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 export const useItemsStore = defineStore("items", () => {
   const allItems = ref([])
   const types = ref([])
+  const activeItemId = ref(null)
 
   types.value = [
     {
@@ -13,7 +14,7 @@ export const useItemsStore = defineStore("items", () => {
       icon: 'i-heroicons-puzzle-piece',
       description: 'Moments you selected from your sets.',
       hasRegions: true,
-      color: 'rgba(230, 0, 0, 0.5)',
+      color: '',
       resize: true,
       drag: true
     },
@@ -52,6 +53,20 @@ export const useItemsStore = defineStore("items", () => {
     }
   ]
 
-  return { types, allItems }
+
+  const addToItemsAndMakeActive = (item) => {
+    allItems.value.push({ id: item.id, start: item.start, type: item.type, end: item.end });
+    activeItemId.value = item.id
+  }
+
+
+  const removeFromItemsAndDisactivate = (itemId) => {
+    allItems.value = allItems.value.filter(item => item.id !== itemId);
+    activeItemId.value = null
+  }
+
+  const activeItem = computed(() => allItems.value.filter(item => item.id === activeItemId.value))
+
+  return { types, allItems, addToItemsAndMakeActive, removeFromItemsAndDisactivate, activeItemId, activeItem}
 })
 

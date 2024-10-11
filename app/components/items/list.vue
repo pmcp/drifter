@@ -1,7 +1,11 @@
 <template>
-
   <div v-if="items?.length">
-    <items-single :item="item" v-for="(item) in items" :key="`lists-${item.id}`"/>
+    <items-single
+      v-for="(item) in items"
+      :key="`lists-${item.id}`"
+      :item="item"
+      :active="activeItemId === item.id"
+    />
   </div>
   <div v-else class="h-full w-full flex flex-col items-center justify-center">
     <span class="italic font-extralight">No {{ typeObject.title }} yet</span>
@@ -16,7 +20,7 @@ const props = defineProps({
 })
 
 const ItemsStore = useItemsStore()
-const { allItems, types } = storeToRefs(ItemsStore)
+const { allItems, types, activeItemId, activeItem } = storeToRefs(ItemsStore)
 // get the computed list
 const items = computed(() => {
   const filteredItems = allItems.value.filter(x => x.type === props.type)

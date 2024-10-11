@@ -1,6 +1,5 @@
 <template>
   <div class="absolute top-0 left-0 w-full h-full">
-
     <client-only>
       <FlowMain class="h-screen w-screen"/>
     </client-only>

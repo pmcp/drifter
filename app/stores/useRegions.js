@@ -5,15 +5,17 @@ export const useRegionsStore = defineStore("regions", () => {
   const PlayerStore = usePlayerStore()
   const { player } = storeToRefs(PlayerStore)
 
-  const regions = ref([])
-  const savedRegions = ref([])
-
   const ItemsStore = useItemsStore()
   const { allItems, types } = storeToRefs(ItemsStore)
+  const { addToItemsAndMakeActive, removeFromItemsAndDisactivate } = ItemsStore
 
   const TabsStore = useTabsStore()
   const { showTabs, selectedTab } = storeToRefs(TabsStore)
+  const { goToTabAndShow } = TabsStore
 
+
+  const regions = ref([])
+  const savedRegions = ref([])
 
   const loadRegions = () => {
     regions.value.clearRegions()
@@ -38,7 +40,6 @@ export const useRegionsStore = defineStore("regions", () => {
     return regions.value.addRegion(region)
   }
 
-// TODO: Make addRegion async so it can return
   const addRegion = (type) => {
     const start = player.value.getCurrentTime()
     let end;
@@ -53,12 +54,9 @@ export const useRegionsStore = defineStore("regions", () => {
       drag: type.drag,
     })
 
-    allItems.value.push({ id: newRegion.id, start, type: type.id, end });
+    addToItemsAndMakeActive({ ...newRegion, type: type.id})
+    goToTabAndShow(types.value.findIndex(x => x.id === type.id))
 
-    // Show tabs at correct list
-    const index = types.value.findIndex(x => x.id === type.id);
-    selectedTab.value = index
-    showTabs.value = true;
   };
 
 
@@ -79,7 +77,7 @@ export const useRegionsStore = defineStore("regions", () => {
       const regionToRemove = regions.value.getRegions().find(r => r.id === region.id);
       if (regionToRemove) regionToRemove.remove();
       // Remove region from list
-      allItems.value = allItems.value.filter(r => r.id !== region.id);
+      removeFromItemsAndDisactivate(regionToRemove.id)
     }
   };
 

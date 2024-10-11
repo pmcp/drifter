@@ -25,6 +25,11 @@ export const useTabsStore = defineStore("tabs", () => {
     showTabs.value = true;
   }
 
+  const goToTabAndShow = (index) => {
+    selectedTab.value = index
+    showTabs.value = true;
+  }
+
   const tabsUi = {
     wrapper: 'relative space-y-2',
     container: 'relative w-full ',
@@ -60,24 +65,6 @@ export const useTabsStore = defineStore("tabs", () => {
     },
   }
 
-  const route = useRoute()
-  const router = useRouter()
-
-  // const selectedTab = computed({
-  //   get () {
-  //     const index = tabs.value.findIndex((item) => item.label === route.query.tab)
-  //     if (index === -1) {
-  //       return 0
-  //     }
-  //
-  //     return index
-  //   },
-  //   set (value) {
-  //     // Hash is specified here to prevent the page from scrolling to the top
-  //     router.replace({ query: { tab: tabs.value[value].label }, hash: '#control-tabs' })
-  //   }
-  // })
-
-  return { tabs, tabsUi, showTabs, onTabClick, selectedTab }
+  return { tabs, tabsUi, showTabs, onTabClick, selectedTab, goToTabAndShow }
 
 })
