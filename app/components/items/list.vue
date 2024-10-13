@@ -33,4 +33,10 @@ const typeObject = computed(() => types.value.find(x => {
   console.log('x', x, props.type)
   return x.id === props.type
 }))
+
+// const itemsWithNodes = computed(() => {
+//   // I need to filter out the values that are not on the flow
+//   items.value.filter()
+// })
+
 </script>

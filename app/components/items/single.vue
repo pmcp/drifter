@@ -8,7 +8,7 @@
       color="primary"
       variant="outline"
       :trailing="false"
-      @click="removeRegion(item)"
+      @click="removeItem(item.id, item.hasNode)"
     />
   </div>
   <!--  NOTE: END -->
@@ -25,15 +25,7 @@
         color="primary"
         variant="outline"
         :trailing="false"
-        @click="removeRegion(item)"
-      />
-      <UButton
-        icon="i-heroicons-arrow-trending-down"
-        size="sm"
-        color="primary"
-        variant="outline"
-        :trailing="false"
-        @click="addToNodes(item)"
+        @click="removeItem(item.id, item.hasNode)"
       />
     </div>
   </UCard>
@@ -53,7 +45,7 @@
         color="primary"
         variant="outline"
         :trailing="false"
-        @click="removeRegion(item)"
+        @click="removeItem(item.id, item.hasNode)"
       />
   </div>
 </template>
@@ -69,8 +61,7 @@ const props = defineProps({
   }
 })
 
-const { removeRegion } = useRegionsStore()
-const { addToNodes } = useNodesStore()
+const { removeItem } = useActionsStore()
 
 const ui = computed(() => {
   return {

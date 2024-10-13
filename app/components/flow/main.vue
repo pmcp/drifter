@@ -1,6 +1,13 @@
 <template>
   <div class="w-full h-full">
-  <VueFlow aclass="flow w-full h-full"  :nodes="nodes"  :edges="edges" :connection-radius="30" auto-connect fit-view-on-init>
+  <VueFlow
+    class="flow w-full h-full"
+    :nodes="nodes"
+    :edges="edges"
+    :connection-radius="30"
+    auto-connect
+    fit-view-on-init
+  >
     <Background :patternColor="'black'"/>
     <MiniMap pannable zoomable />
     <Controls />
@@ -66,7 +73,6 @@ const {
   onNodeDrag,
   onEdgeDoubleClick,
 } = useVueFlow()
-
 
 onNodeDrag((value) => {
   updateNode(value.node)

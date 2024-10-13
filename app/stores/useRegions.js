@@ -6,8 +6,7 @@ export const useRegionsStore = defineStore("regions", () => {
   const { player } = storeToRefs(PlayerStore)
 
   const ItemsStore = useItemsStore()
-  const { allItems, types } = storeToRefs(ItemsStore)
-  const { addToItemsAndMakeActive, removeFromItemsAndDisactivate } = ItemsStore
+  const { allItems } = storeToRefs(ItemsStore)
 
   const TabsStore = useTabsStore()
   const { showTabs, selectedTab } = storeToRefs(TabsStore)
@@ -27,6 +26,7 @@ export const useRegionsStore = defineStore("regions", () => {
 
 
   const setRegion = (region) => {
+    console.log('setRegion', region)
     if(region.key === 'sample' && regions.value.regions.length > 0) {
       savedRegions.value = regions.value.regions.map(r => ({
         start: r.start,
@@ -44,7 +44,8 @@ export const useRegionsStore = defineStore("regions", () => {
     const start = player.value.getCurrentTime()
     let end;
     if(type.regionType === 'range') end = start + 10
-    const newRegion = setRegion({
+    console.log(end)
+    return setRegion({
       start,
       end,
       type: type.id,
@@ -53,10 +54,6 @@ export const useRegionsStore = defineStore("regions", () => {
       resize: type.resize,
       drag: type.drag,
     })
-
-    addToItemsAndMakeActive({ ...newRegion, type: type.id})
-    goToTabAndShow(types.value.findIndex(x => x.id === type.id))
-
   };
 
 
@@ -71,14 +68,12 @@ export const useRegionsStore = defineStore("regions", () => {
     }
   };
 
-  const removeRegion = (region) => {
-    if (regions.value) {
-      // Remove region from wavesurfer
-      const regionToRemove = regions.value.getRegions().find(r => r.id === region.id);
-      if (regionToRemove) regionToRemove.remove();
-      // Remove region from list
-      removeFromItemsAndDisactivate(regionToRemove.id)
-    }
+  const removeRegion = (id) => {
+    console.log('removeRegion', id)
+    const regionToRemove = regions.value.getRegions().find(r => r.id === id);
+    if (!regionToRemove) throw new Error(`Region with id ${id} not found`);
+    console.log('regionToRemove', regionToRemove)
+    regionToRemove.remove();
   };
 
 

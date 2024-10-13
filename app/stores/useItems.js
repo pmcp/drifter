@@ -14,7 +14,7 @@ export const useItemsStore = defineStore("items", () => {
       icon: 'i-heroicons-puzzle-piece',
       description: 'Moments you selected from your sets.',
       hasRegions: true,
-      color: '',
+      color: 'rgba(255, 99, 0, 0.8)',
       resize: true,
       drag: true
     },
@@ -26,7 +26,7 @@ export const useItemsStore = defineStore("items", () => {
       icon: 'i-heroicons-chat-bubble-bottom-center-text',
       description: 'Notes and comments you added to your sets.',
       hasRegions: true,
-      color: 'rgba(255, 199, 0, 0.8)',
+      color: 'rgba(255, 199, 0, 1)',
       resize: true,
       drag: true
     }, {
@@ -37,7 +37,7 @@ export const useItemsStore = defineStore("items", () => {
       icon: 'i-heroicons-musical-note',
       description: 'Tracks that appear in your sets.',
       hasRegions: true,
-      color: 'rgba(51, 255, 224, 0.5)',
+      color: 'rgba(51, 255, 224, 1)',
       resize: false,
       drag: true
     },
@@ -55,7 +55,13 @@ export const useItemsStore = defineStore("items", () => {
 
 
   const addToItemsAndMakeActive = (item) => {
-    allItems.value.push({ id: item.id, start: item.start, type: item.type, end: item.end });
+    allItems.value.push({
+      id: item.id,
+      start: item.start,
+      type: item.type,
+      end: item.end,
+      hasNode: item.hasNode,
+    });
     setActiveItemId(item.id)
   }
 

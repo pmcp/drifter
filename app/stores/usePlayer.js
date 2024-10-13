@@ -50,6 +50,7 @@ export const usePlayerStore = defineStore("player", () => {
       autoScroll: true,
       autoCenter: true,
       hideScrollbar: true,
+      dragToSeek: true,
     }
 
     // create regionsPlugin

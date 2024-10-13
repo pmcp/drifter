@@ -51,4 +51,6 @@
 <script setup>
 const ItemsStore = useItemsStore()
 const { types, allItems } = storeToRefs(ItemsStore)
+
+
 </script>
