@@ -17,8 +17,9 @@
 
   <!-- SAMPLE: START -->
   <UCard v-else-if="item.type === 'sample'" :ui="ui">
-    <div class="flex flex-row gap-2 items-center">
-      <UInput v-model="item.title" placeholder="Title" class="flex-grow"/>
+    <div v-if="!active" class="flex flex-row gap-2 items-center">
+      <span v-if="item.title" class="flex-grow">{{ item.title }}</span>
+      <span v-else class="flex-grow italic font-extralight">No title yet, click to edit</span>
       <UButton
         icon="i-heroicons-trash"
         size="sm"
@@ -27,6 +28,22 @@
         :trailing="false"
         @click="removeItem(item.id, item.hasNode)"
       />
+    </div>
+    <div v-else class="flex flex-col gap-2">
+      <div class="flex flex-row gap-2 items-center">
+        <UInput v-model="item.title" placeholder="Title" class="flex-grow"/>
+        <UButton
+          icon="i-heroicons-trash"
+          size="sm"
+          color="primary"
+          variant="outline"
+          :trailing="false"
+          @click="removeItem(item.id, item.hasNode)"
+        />
+      </div>
+      <div>
+
+      </div>
     </div>
   </UCard>
   <!-- SAMPLE: END -->
@@ -51,6 +68,7 @@
 </template>
 
 <script setup>
+
 const props = defineProps({
   item: {
     type: Object

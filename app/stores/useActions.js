@@ -10,7 +10,7 @@ export const useActionsStore = defineStore("actions", () => {
   const { addRegion, removeRegion } = RegionsStore
 
   const ItemsStore = useItemsStore()
-  const { allItems, types } = storeToRefs(ItemsStore)
+  const { types, activeItemId } = storeToRefs(ItemsStore)
   const { addToItemsAndMakeActive, removeFromItemsAndDisactivate } = ItemsStore
 
   const TabsStore = useTabsStore()
@@ -59,7 +59,13 @@ export const useActionsStore = defineStore("actions", () => {
     }
   }
 
+  const setActiveItem = async (itemId) => {
+    activeItemId.value = itemId;
+    if(itemId === null) return;
+    goToTabAndShow(0)
+  }
 
 
-  return { addItem, removeItem }
+
+  return { addItem, removeItem, setActiveItem }
 })

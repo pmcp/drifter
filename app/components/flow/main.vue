@@ -19,10 +19,17 @@
 
     <template #node-sample="nodeProps">
       <Handle type="source" position="right" />
-      <flow-node :item="nodeProps" :active="activeItemId === nodeProps.id" @click="setActiveItemId(nodeProps.id)"></flow-node>
+      <flow-node
+        :item="nodeProps"
+        :active="activeItemId === nodeProps.id"
+      >
+
+      </flow-node>
       <Handle type="target" position="left" />
 
     </template>
+
+
   </VueFlow>
   </div>
 </template>
@@ -35,7 +42,11 @@ import { Controls } from '@vue-flow/controls'
 import { NodeToolbar } from '@vue-flow/node-toolbar'
 
 
-import { Handle, useHandleConnections, VueFlow, useVueFlow, Position, useNodesData,  } from '@vue-flow/core'
+import { Handle, useHandleConnections, VueFlow, useVueFlow, Position, useNodesData } from '@vue-flow/core'
+
+const ActionsStore = useActionsStore()
+const { setActiveItem } = ActionsStore
+
 
 const NodesStore = useNodesStore()
 const { nodes } = storeToRefs(NodesStore)
@@ -48,6 +59,10 @@ const { setRegion, loadRegions } = useRegionsStore()
 
 const PlayerStore = usePlayerStore()
 const { player, playerIsReady, playerIsPlaying } = storeToRefs(PlayerStore)
+
+const ItemStore = useItemsStore()
+const { activeItemId } = storeToRefs(ItemStore)
+
 
 const playRegion = (region) => {
   if(!playerIsReady.value) return;
@@ -72,7 +87,13 @@ const stopRegion = (region) => {
 const {
   onNodeDrag,
   onEdgeDoubleClick,
+  onPaneClick,
+  onNodeClick,
 } = useVueFlow()
+
+onPaneClick((value) => {
+  setActiveItem(null)
+})
 
 onNodeDrag((value) => {
   updateNode(value.node)
@@ -82,9 +103,9 @@ onEdgeDoubleClick((value) => {
   playRegion(value.edge)
 })
 
-const ItemStore = useItemsStore()
-const { activeItemId } = storeToRefs(ItemStore)
-const { setActiveItemId } = ItemStore
+onNodeClick((value) => {
+  setActiveItem(value.node.id)
+})
 
 </script>
 
