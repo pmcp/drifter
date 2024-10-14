@@ -98,5 +98,14 @@ export const useActionsStore = defineStore("actions", () => {
 
   }
 
-  return { addItem, removeItem, setActiveItem, mountPlayer, setStartOrEnd }
+  const goToItemStartAndPlay = (itemId) => {
+    const item = allItems.value.filter(x => x.id === itemId)[0]
+    if(!item) return;
+    // set the item as active
+    activeItemId.value = itemId
+    player.value.setTime(item.start)
+    player.value.play()
+  }
+
+  return { addItem, removeItem, setActiveItem, mountPlayer, setStartOrEnd, goToItemStartAndPlay }
 })

@@ -133,6 +133,8 @@ export const usePlayerStore = defineStore("player", () => {
     })
 
     regionsPlugin.value.on('region-out', (region) => {
+      console.log('✅ usePlayer - regionsPlugin.on - region-out', region)
+      if(!activeItem.value) return
       if(region.id === activeItem.value.regionId) activeItemId.value = null
     })
 

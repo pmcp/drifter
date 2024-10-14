@@ -16,7 +16,6 @@ export const useEdgesStore = defineStore("edges", () => {
         if(edges.value === null) edges.value = [edge]
         edges.value = [...edges.value, edge]
       }
-
     }
   }
 

@@ -1,6 +1,7 @@
 <template>
   <UCard :ui="ui">
-    <span class="text-md font-bold">{{ item.type }}</span>
+    <UButton :ui="{ rounded: 'rounded-full' }" v-if="!playerIsPlaying" @click="goToItemStartAndPlay(item.id)" class="flex flex-row justify-center" icon="i-heroicons-play" />
+<!--    <span class="text-md font-bold">{{ item.type }}</span>-->
   </UCard>
 </template>
 <script setup>
@@ -13,6 +14,10 @@ const props = defineProps({
     default: false
   }
 })
+
+const ActionsStore = useActionsStore()
+const { goToItemStartAndPlay } = ActionsStore
+
 
 const ui = computed(() => {
   return {
