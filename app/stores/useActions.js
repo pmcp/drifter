@@ -51,7 +51,7 @@ export const useActionsStore = defineStore("actions", () => {
       }
 
       addToItemsAndMakeActive(itemToCreate)
-      goToTabAndShow(types.value.findIndex(x => x.id === type.id))
+      // goToTabAndShow(types.value.findIndex(x => x.id === type.id))
 
     } catch (error) {
       console.error('⛔ useActions - addItem:  error', error)
@@ -76,7 +76,7 @@ export const useActionsStore = defineStore("actions", () => {
     activeItemId.value = itemId;
     if(itemId === null) return;
     const item = allItems.value.find(x => x.id === itemId)
-    if(item) goToTabAndShow(types.value.findIndex(x => x.id === item.type))
+    // if(item) goToTabAndShow(types.value.findIndex(x => x.id === item.type))
   }
 
   const mountPlayer = () => {

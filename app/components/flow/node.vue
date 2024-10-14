@@ -1,6 +1,6 @@
 <template>
   <UCard :ui="ui">
-    <UButton :ui="{ rounded: 'rounded-full' }" v-if="!playerIsPlaying" @click="goToItemStartAndPlay(item.id)" class="flex flex-row justify-center" icon="i-heroicons-play" />
+    <UButton :ui="{ rounded: 'rounded-full' }" @click="goToItemStartAndPlay(item.id)" class="flex flex-row justify-center" icon="i-heroicons-play" />
 <!--    <span class="text-md font-bold">{{ item.type }}</span>-->
   </UCard>
 </template>

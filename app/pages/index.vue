@@ -5,8 +5,10 @@
     </client-only>
   </div>
 
-  <div class="absolute bottom-0 left-4 pointer-events-none">
-    <ui-darkmode class="pointer-events-auto"/>
+  <div class="absolute bottom-0 left-4 pointer-events-none z-30">
+    <div class="pointer-events-auto">
+      <ui-darkmode />
+    </div>
   </div>
 
   <div class=" absolute top-0 left-0 w-full p-4 md:p-8 flex flex-col items-center pointer-events-none">
