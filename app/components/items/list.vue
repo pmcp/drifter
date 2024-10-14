@@ -4,6 +4,7 @@
     class="flex flex-col gap-2 p-1"
   >
     <items-single
+      class="w-full"
       v-for="(item) in items"
       :key="`lists-${item.id}`"
       :item="item"
@@ -12,7 +13,7 @@
     />
   </div>
   <div v-else class="h-full w-full flex flex-col items-center justify-center">
-    <span class="italic font-extralight">No {{ typeObject.title }} yet</span>
+    <span class="italic font-extralight">No title yet</span>
   </div>
 
 </template>
@@ -37,7 +38,6 @@ const items = computed(() => {
 
 // get the type from useItems > types, based on the type id passed by the prop
 const typeObject = computed(() => types.value.find(x => {
-  console.log('x', x, props.type)
   return x.id === props.type
 }))
 

@@ -10,6 +10,13 @@ const formatTime= (seconds) => [seconds / 60, seconds % 60].map((v) => `0${Math.
 
 export const usePlayerStore = defineStore("player", () => {
 
+  const ItemsStore = useItemsStore()
+  const { types } = storeToRefs(ItemsStore)
+
+  const RegionsStore = useRegionsStore()
+  const { addRegion } = RegionsStore
+
+
   const playerSrc = ref(null)
   const waveformRef = ref(null)
   const player = ref(null)
@@ -55,16 +62,16 @@ export const usePlayerStore = defineStore("player", () => {
 
     // create regionsPlugin
     const RegionsStore = useRegionsStore()
-    const { regions } = storeToRefs(RegionsStore)
+    const { regionsPlugin } = storeToRefs(RegionsStore)
     const { updateRegionsList } = useRegionsStore()
 
-    regions.value = RegionsPlugin.create();
+    regionsPlugin.value = RegionsPlugin.create();
 
     player.value = WaveSurfer.create({
       container: waveformRef.value,
       url: playerSrc.value,
       plugins: [
-        regions.value,
+        regionsPlugin.value,
         // ZoomPlugin.create({
         //   // the amount of zoom per wheel step, e.g. 0.5 means a 50% magnification per scroll
         //   scale: 0.5,
@@ -82,9 +89,23 @@ export const usePlayerStore = defineStore("player", () => {
       ...playerSettings.value,
     });
 
+
+
     // Set watchers
     player.value.on('ready', () => {
       console.info('✅ usePlayer - initPlayerinitPlayer: Watcher -- player ready')
+
+      // load regions from items in local storage
+      const localItems = localStorage.getItem('items')
+      if(localItems) {
+        const items = JSON.parse(localItems)
+        items.allItems.forEach(item => {
+          const type = types.value.find(x => x.id === item.type)
+          addRegion(item.regionId, item.start, item.end, type)
+        })
+      }
+
+
       playerTotalDuration.value = player.value.getDuration()
       playerIsReady.value = true;
     });
@@ -110,7 +131,7 @@ export const usePlayerStore = defineStore("player", () => {
 
 
     // TODO: move to useRegions
-    regions.value.on('region-updated', updateRegionsList);
+    // regionsPlugin.value.on('region-updated', updateRegionsList);
   }
 
   const destroyPlayer = () => {

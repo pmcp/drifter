@@ -17,14 +17,16 @@ const {
   playerLoadingValue,
   playerIsReady
 } = storeToRefs(playerStore)
-const { initPlayer, destroyPlayer, togglePlayPause } = playerStore
+const { destroyPlayer, togglePlayPause } = playerStore
+
+const { mountPlayer } = useActionsStore()
 
 const keysStore = useKeysStore()
 const { setShortcutKeys } = keysStore
 
 onMounted(() => {
   playerSrc.value = 'testsong.m4a'
-  initPlayer()
+  mountPlayer()
   setShortcutKeys()
 
 });

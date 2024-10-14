@@ -77,11 +77,11 @@ const playRegion = (region) => {
 }
 
 
-const stopRegion = (region) => {
-  if(!playerIsReady.value) return;
-  loadRegions()
-  player.value.pause()
-}
+// const stopRegion = (region) => {
+//   if(!playerIsReady.value) return;
+//   loadRegions()
+//   player.value.pause()
+// }
 
 // All flow events
 const {

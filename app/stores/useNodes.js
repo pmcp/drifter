@@ -52,4 +52,11 @@ export const useNodesStore = defineStore("nodes", () => {
 
   return { nodes, addNode, updateNode, removeNode }
 
-})
+}
+, {
+    persist: {
+      storage: piniaPluginPersistedstate.localStorage(),
+      pick: ['nodes'],
+    }
+  }
+)

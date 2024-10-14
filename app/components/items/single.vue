@@ -8,7 +8,7 @@
       color="primary"
       variant="outline"
       :trailing="false"
-      @click="removeItem(item.id, item.hasNode)"
+      @click="removeItem(item.id)"
     />
   </div>
   <!--  NOTE: END -->
@@ -26,7 +26,7 @@
         color="primary"
         variant="outline"
         :trailing="false"
-        @click="removeItem(item.id, item.hasNode)"
+        @click="removeItem(item.id)"
       />
     </div>
     <div v-else class="flex flex-col gap-2">
@@ -38,7 +38,7 @@
           color="primary"
           variant="outline"
           :trailing="false"
-          @click="removeItem(item.id, item.hasNode)"
+          @click="removeItem(item.id)"
         />
       </div>
       <div>
@@ -62,7 +62,7 @@
         color="primary"
         variant="outline"
         :trailing="false"
-        @click="removeItem(item.id, item.hasNode)"
+        @click="removeItem(item.id)"
       />
   </div>
 </template>
@@ -78,6 +78,7 @@ const props = defineProps({
     default: false
   }
 })
+
 
 const { removeItem } = useActionsStore()
 

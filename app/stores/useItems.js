@@ -16,7 +16,7 @@ export const useItemsStore = defineStore("items", () => {
       hasRegions: true,
       color: 'rgba(255, 99, 0, 0.8)',
       resize: true,
-      drag: true
+      drag: false,
     },
     {
       id: 'note',
@@ -28,7 +28,7 @@ export const useItemsStore = defineStore("items", () => {
       hasRegions: true,
       color: 'rgba(255, 199, 0, 1)',
       resize: true,
-      drag: true
+      drag: true,
     }, {
       id: 'track',
       title: 'tracks',
@@ -39,7 +39,7 @@ export const useItemsStore = defineStore("items", () => {
       hasRegions: true,
       color: 'rgba(51, 255, 224, 1)',
       resize: false,
-      drag: true
+      drag: true,
     },
     {
       id: 'set',
@@ -60,6 +60,7 @@ export const useItemsStore = defineStore("items", () => {
       start: item.start,
       type: item.type,
       end: item.end,
+      regionId: item.regionId,
       hasNode: item.hasNode,
     });
     activeItemId.value = item.id;
@@ -76,5 +77,11 @@ export const useItemsStore = defineStore("items", () => {
 
 
   return { types, allItems, addToItemsAndMakeActive, removeFromItemsAndDisactivate, activeItemId, activeItem}
-})
+}
+  , {
+  persist: {
+    storage: piniaPluginPersistedstate.localStorage(),
+    pick: ['allItems'],
+  }}
+)
 

@@ -1,16 +1,19 @@
 import { defineStore } from 'pinia'
+import {v4 as uuidv4} from 'uuid';
+
+
+
 export const useActionsStore = defineStore("actions", () => {
 
-
   const PlayerStore = usePlayerStore()
-  const { playerIsReady } = storeToRefs(PlayerStore)
+  const { playerIsReady, player } = storeToRefs(PlayerStore)
+  const { initPlayer } = PlayerStore
 
   const RegionsStore = useRegionsStore()
-  // const { allItems, types } = storeToRefs(ItemsStore)
   const { addRegion, removeRegion } = RegionsStore
 
   const ItemsStore = useItemsStore()
-  const { types, activeItemId } = storeToRefs(ItemsStore)
+  const { allItems, types, activeItemId } = storeToRefs(ItemsStore)
   const { addToItemsAndMakeActive, removeFromItemsAndDisactivate } = ItemsStore
 
   const TabsStore = useTabsStore()
@@ -27,18 +30,26 @@ export const useActionsStore = defineStore("actions", () => {
 
   const addItem = async (type) => {
     if(!checkIfEverythingIsReady()) return;
+
     try {
-      const newRegion = addRegion(type)
-      const newItem =  {
-        ...newRegion,
+      const itemToCreate =  {
+        id: uuidv4(),
+        start: player.value.getCurrentTime(),
         type: type.id,
-        hasNode: false
+        hasNode: false,
+        regionId: uuidv4(),
       }
+      // TODO: Make the time to add for range a setting or a something dynamic based on visible px or something?
+      if(type.regionType === 'range') itemToCreate.end = itemToCreate.start + 1
+
+      addRegion(itemToCreate.regionId, itemToCreate.start, itemToCreate.end, type)
+
       if(type.id === 'sample') {
-        newItem.hasNode = true
-        addNode(newItem)
+        itemToCreate.hasNode = true
+        addNode(itemToCreate)
       }
-      addToItemsAndMakeActive(newItem)
+
+      addToItemsAndMakeActive(itemToCreate)
       goToTabAndShow(types.value.findIndex(x => x.id === type.id))
 
     } catch (error) {
@@ -46,14 +57,15 @@ export const useActionsStore = defineStore("actions", () => {
     }
   }
 
-  const removeItem = async (itemId, hasNode) => {
-    console.log('✅ useActions - removeItem: itemId', itemId, hasNode)
+  const removeItem = async (itemId) => {
+    console.log('✅ useActions - removeItem: itemId', itemId)
     if(!checkIfEverythingIsReady()) return;
 
     try {
-      if(hasNode) removeNode(itemId)
-      removeRegion(itemId)
-      removeFromItemsAndDisactivate(itemId)
+      const item = allItems.value.filter(x => x.id === itemId)[0]
+      if(item.hasNode) removeNode(item.id)
+      removeRegion(item.regionId)
+      removeFromItemsAndDisactivate(item.id)
     } catch (error) {
       console.error('⛔ useActions - removeItem:error', error)
     }
@@ -65,7 +77,9 @@ export const useActionsStore = defineStore("actions", () => {
     goToTabAndShow(0)
   }
 
+  const mountPlayer = () => {
+    initPlayer()
+  }
 
-
-  return { addItem, removeItem, setActiveItem }
+  return { addItem, removeItem, setActiveItem, mountPlayer }
 })
