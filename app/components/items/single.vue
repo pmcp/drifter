@@ -3,6 +3,14 @@
   <div v-if="item.type === 'note'" class="flex flex-row gap-2 items-center justify-between">
     <UInput v-model="item.content" placeholder="Comment" class="flex-grow" />
     <UButton
+      icon="i-heroicons-chevron-up-down"
+      size="sm"
+      color="primary"
+      variant="outline"
+      :trailing="false"
+      @click="setActiveItem(item.id)"
+    />
+    <UButton
       icon="i-heroicons-trash"
       size="sm"
       color="primary"
@@ -19,7 +27,15 @@
   <UCard v-else-if="item.type === 'sample'" :ui="ui">
     <div v-if="!active" class="flex flex-row gap-2 items-center">
       <span v-if="item.title" class="flex-grow">{{ item.title }}</span>
-      <span v-else class="flex-grow italic font-extralight">No title yet, click to edit</span>
+      <span v-else class="flex-grow italic font-extralight">No title yet</span>
+      <UButton
+        icon="i-heroicons-chevron-up-down"
+        size="sm"
+        color="primary"
+        variant="outline"
+        :trailing="false"
+        @click="setActiveItem(item.id)"
+      />
       <UButton
         icon="i-heroicons-trash"
         size="sm"
@@ -80,7 +96,7 @@ const props = defineProps({
 })
 
 
-const { removeItem } = useActionsStore()
+const { setActiveItem, removeItem } = useActionsStore()
 
 const ui = computed(() => {
   return {

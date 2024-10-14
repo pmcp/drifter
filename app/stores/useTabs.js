@@ -20,12 +20,12 @@ export const useTabsStore = defineStore("tabs", () => {
   })
 
   const onTabClick = (index) => {
-    console.log(index)
     selectedTab.value = index
     showTabs.value = true;
   }
 
   const goToTabAndShow = (index) => {
+    console.log('goToTabAndShow', index)
     selectedTab.value = index
     showTabs.value = true;
   }

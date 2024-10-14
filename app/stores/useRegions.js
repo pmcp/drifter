@@ -40,13 +40,8 @@ export const useRegionsStore = defineStore("regions", () => {
 
 
   const removeRegion = (id) => {
-    console.log('removeRegion', id, regionsPlugin.value.getRegions())
-
-
-
     const regionToRemove = regionsPlugin.value.getRegions().find(r => r.id === id);
     if (!regionToRemove) throw new Error(`Region with id ${id} not found`);
-    console.log('regionToRemove', regionToRemove)
     regionToRemove.remove();
   };
 

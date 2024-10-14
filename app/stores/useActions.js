@@ -74,7 +74,8 @@ export const useActionsStore = defineStore("actions", () => {
   const setActiveItem = async (itemId) => {
     activeItemId.value = itemId;
     if(itemId === null) return;
-    goToTabAndShow(0)
+    const item = allItems.value.find(x => x.id === itemId)
+    if(item) goToTabAndShow(types.value.findIndex(x => x.id === item.type))
   }
 
   const mountPlayer = () => {

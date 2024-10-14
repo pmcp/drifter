@@ -1,4 +1,5 @@
 <template>
+  <client-only>
   <div
     v-if="items?.length"
     class="flex flex-col gap-2 p-1"
@@ -9,12 +10,12 @@
       :key="`lists-${item.id}`"
       :item="item"
       :active="activeItemId === item.id"
-      @click="setActiveItem(item.id)"
     />
   </div>
   <div v-else class="h-full w-full flex flex-col items-center justify-center">
     <span class="italic font-extralight">No title yet</span>
   </div>
+  </client-only>
 
 </template>
 <script setup>
@@ -23,9 +24,6 @@ const props = defineProps({
     type: String
   }
 })
-
-const ActionsStore = useActionsStore()
-const { setActiveItem } = ActionsStore
 
 const ItemsStore = useItemsStore()
 const { allItems, types, activeItemId } = storeToRefs(ItemsStore)
