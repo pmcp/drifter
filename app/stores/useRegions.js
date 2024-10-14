@@ -106,17 +106,15 @@ export const useRegionsStore = defineStore("regions", () => {
     return parseInt(minutes) * 60 + parseInt(seconds) + parseInt(milliseconds) / 1000;
   };
 
-  const updateRegionStart = (region, newStartTime) => {
-    const newStart = parseTime(newStartTime);
+  const updateRegionStartOrEnd = (regionId, newTime, startOrEnd) => {
     if (regionsPlugin.value) {
-      const wavesurferRegion = regionsPlugin.value.getRegions().find(r => r.id === region.id);
-      if (wavesurferRegion) {
-        wavesurferRegion.setOptions({ start: newStart });
-        region.start = newStart;
-      }
+      const wavesurferRegion = regionsPlugin.value.getRegions().find(r => r.id === regionId);
+      if(!wavesurferRegion) return;
+      wavesurferRegion.setOptions({ [startOrEnd]: newTime })
     }
   };
 
-  return { regionsPlugin, addRegion, setRegion, loadRegions, setRegionBound, removeRegion, updateRegionsList, updateRegionStart }
+
+  return { regionsPlugin, addRegion, setRegion, loadRegions, setRegionBound, removeRegion, updateRegionsList, updateRegionStartOrEnd }
 
 })

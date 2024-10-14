@@ -3,9 +3,6 @@
     <template #item="{ item }">
       <div class="h-96 overflow-scroll flex flex-col gap-2 pointer-events-auto">
         <items-list :type="item.type"/>
-<!--        <notes-list v-if="item.key === 'comments'"/>-->
-<!--        <songs-list v-if="item.key === 'songs'" />-->
-<!--        <mixes-list v-if="item.key === 'mixes'" />-->
       </div>
     </template>
   </UTabs>

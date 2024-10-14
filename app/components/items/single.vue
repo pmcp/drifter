@@ -28,6 +28,9 @@
     <div v-if="!active" class="flex flex-row gap-2 items-center">
       <span v-if="item.title" class="flex-grow">{{ item.title }}</span>
       <span v-else class="flex-grow italic font-extralight">No title yet</span>
+
+      {{ item.start }} - {{ item.end }}
+
       <UButton
         icon="i-heroicons-chevron-up-down"
         size="sm"
@@ -57,6 +60,7 @@
           @click="removeItem(item.id)"
         />
       </div>
+      {{ item.start }} - {{ item.end }}
       <div>
 
       </div>

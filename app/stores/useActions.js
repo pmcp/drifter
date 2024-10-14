@@ -10,7 +10,7 @@ export const useActionsStore = defineStore("actions", () => {
   const { initPlayer } = PlayerStore
 
   const RegionsStore = useRegionsStore()
-  const { addRegion, removeRegion } = RegionsStore
+  const { addRegion, removeRegion, updateRegionStartOrEnd } = RegionsStore
 
   const ItemsStore = useItemsStore()
   const { allItems, types, activeItemId } = storeToRefs(ItemsStore)
@@ -35,6 +35,7 @@ export const useActionsStore = defineStore("actions", () => {
       const itemToCreate =  {
         id: uuidv4(),
         start: player.value.getCurrentTime(),
+
         type: type.id,
         hasNode: false,
         regionId: uuidv4(),
@@ -82,5 +83,20 @@ export const useActionsStore = defineStore("actions", () => {
     initPlayer()
   }
 
-  return { addItem, removeItem, setActiveItem, mountPlayer }
+  const setStartOrEnd = (startOrEnd, time, itemId) => {
+    console.log('✅ useActions - setInOut: inOut', startOrEnd, time, itemId)
+    console.log(checkIfEverythingIsReady())
+    if(!checkIfEverythingIsReady()) return;
+    // only continue if there is an activeItem
+    // if no activeItem, return
+    if(!itemId) return;
+    // set the start of the activeItem to the current time
+    allItems.value.filter(x => x.id === itemId)[0][startOrEnd] = time
+    // reflect this change in the wavesurfer region (useRegionsStore)
+    const item = allItems.value.filter(x => x.id === itemId)[0]
+    updateRegionStartOrEnd(item.regionId, time, startOrEnd)
+
+  }
+
+  return { addItem, removeItem, setActiveItem, mountPlayer, setStartOrEnd }
 })
