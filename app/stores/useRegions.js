@@ -16,28 +16,19 @@ export const useRegionsStore = defineStore("regions", () => {
   const { goToTabAndShow } = TabsStore
 
   const addRegion = (id, start, end, type) => {
-    console.log('addRegion', id, start, end, type)
-
     const regionToAdd = {
       start: start,
       end: end,
       type: type.id,
       id: id,
-      // content: `New ${type.singular}`,
       color: type.color,
       resize: type.resize,
       drag: type.drag,
+      // content: `New ${type.singular}`,
     }
-    console.log('REGIONTOADD', regionToAdd)
-
     const newRegion = setRegion(regionToAdd)
-    console.log('newRegion', newRegion)
-
-    return
 
   };
-
-
 
   const removeRegion = (id) => {
     const regionToRemove = regionsPlugin.value.getRegions().find(r => r.id === id);
@@ -45,9 +36,17 @@ export const useRegionsStore = defineStore("regions", () => {
     regionToRemove.remove();
   };
 
-  // Dont know if needed
+  const updateRegionStartOrEnd = (regionId, newTime, startOrEnd) => {
+    if (regionsPlugin.value) {
+      const wavesurferRegion = regionsPlugin.value.getRegions().find(r => r.id === regionId);
+      if(!wavesurferRegion) return;
+      wavesurferRegion.setOptions({ [startOrEnd]: newTime })
+    }
+  };
 
 
+
+  // Dont know if still needed
 
 
   const loadRegions = () => {
@@ -76,45 +75,6 @@ export const useRegionsStore = defineStore("regions", () => {
 
 
 
-  const setRegionBound = (region, startOrEnd) => {
-    if (player.value && regionsPlugin.value) {
-      const playerCurrentTime = player.value.getCurrentTime();
-      const wavesurferRegion = regionsPlugin.value.getRegions().find(r => r.id === region.id);
-      if (wavesurferRegion) {
-        if(startOrEnd === 'start') wavesurferRegion.setOptions({ start: playerCurrentTime });
-        if(startOrEnd === 'end') wavesurferRegion.setOptions({ end: playerCurrentTime });
-      }
-    }
-  };
-
-
-
-
-
-
-
-
-
-  const updateRegionsList = (region) => {
-    allItems.value.find(r => r.id === region.id).start = region.start;
-    allItems.value.find(r => r.id === region.id).end = region.end;
-  }
-
-  const parseTime = (timeString) => {
-    const [minutesSeconds, milliseconds] = timeString.split('.');
-    const [minutes, seconds] = minutesSeconds.split(':');
-    return parseInt(minutes) * 60 + parseInt(seconds) + parseInt(milliseconds) / 1000;
-  };
-
-  const updateRegionStartOrEnd = (regionId, newTime, startOrEnd) => {
-    if (regionsPlugin.value) {
-      const wavesurferRegion = regionsPlugin.value.getRegions().find(r => r.id === regionId);
-      if(!wavesurferRegion) return;
-      wavesurferRegion.setOptions({ [startOrEnd]: newTime })
-    }
-  };
-
-
-  return { regionsPlugin, addRegion, setRegion, loadRegions, setRegionBound, removeRegion, updateRegionsList, updateRegionStartOrEnd }
+  return { regionsPlugin, addRegion, setRegion, loadRegions, removeRegion, updateRegionStartOrEnd }
 
 })

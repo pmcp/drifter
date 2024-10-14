@@ -28,14 +28,16 @@
           </items-add>
         </div>
 
-        <div class="col-span-1 hidden md:block justify-self-center self-center">
-          <player-duration />
-        </div>
 
-        <div class="col-span-1 justify-self-end flex flex-row gap-2 items-center justify-center">
+
+        <div class="col-span-1 justify-self-center flex flex-row gap-2 items-center justify-center">
           <player-controls-in-out>
             <player-controls-play-pause />
           </player-controls-in-out>
+        </div>
+
+        <div class="col-span-1 hidden md:block justify-self-center self-center">
+          <player-duration />
         </div>
 
         <div class="flex flex-row gap-2 items-center justify-center col-span-3">

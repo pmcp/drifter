@@ -2,6 +2,7 @@
   <!-- NOTE: START-->
   <div v-if="item.type === 'note'" class="flex flex-row gap-2 items-center justify-between">
     <UInput v-model="item.content" placeholder="Comment" class="flex-grow" />
+    {{ item.start }}
     <UButton
       icon="i-heroicons-chevron-up-down"
       size="sm"

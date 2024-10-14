@@ -1,5 +1,6 @@
 <template>
   <div class="w-full h-full">
+
   <VueFlow
     class="flow w-full h-full"
     :nodes="nodes"
@@ -9,13 +10,13 @@
     fit-view-on-init
   >
     <Background :patternColor="'black'"/>
-    <MiniMap pannable zoomable />
-    <Controls />
-    <NodeToolbar :is-visible="true" position="left">
-      <button>delete</button>
-      <button>copy</button>
-      <button>expand</button>
-    </NodeToolbar>
+<!--    <MiniMap pannable zoomable />-->
+<!--    <Controls />-->
+<!--    <NodeToolbar :is-visible="true" position="top">-->
+<!--      <button>delete</button>-->
+<!--      <button>copy</button>-->
+<!--      <button>expand</button>-->
+<!--    </NodeToolbar>-->
 
     <template #node-sample="nodeProps">
       <Handle type="source" position="right" />
@@ -54,6 +55,7 @@ const { updateNode } = NodesStore
 
 const EdgesStore = useEdgesStore()
 const { edges } = storeToRefs(EdgesStore)
+const { handleEdgesChange } = EdgesStore
 
 const { setRegion, loadRegions } = useRegionsStore()
 
@@ -89,6 +91,7 @@ const {
   onEdgeDoubleClick,
   onPaneClick,
   onNodeClick,
+  onEdgesChange
 } = useVueFlow()
 
 onPaneClick((value) => {
@@ -99,8 +102,12 @@ onNodeDrag((value) => {
   updateNode(value.node)
 })
 
+onEdgesChange((value) => {
+  handleEdgesChange(value)
+})
+
 onEdgeDoubleClick((value) => {
-  playRegion(value.edge)
+  // playRegion(value.edge)
 })
 
 onNodeClick((value) => {

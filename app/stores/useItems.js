@@ -73,7 +73,7 @@ export const useItemsStore = defineStore("items", () => {
     activeItemId.value = null;
   }
 
-  const activeItem = computed(() => allItems.value.filter(item => item.id === activeItemId.value))
+  const activeItem = computed(() => allItems.value.filter(item => item.id === activeItemId.value)[0])
 
 
   return { types, allItems, addToItemsAndMakeActive, removeFromItemsAndDisactivate, activeItemId, activeItem}

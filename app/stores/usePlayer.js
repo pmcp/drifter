@@ -11,11 +11,10 @@ const formatTime= (seconds) => [seconds / 60, seconds % 60].map((v) => `0${Math.
 export const usePlayerStore = defineStore("player", () => {
 
   const ItemsStore = useItemsStore()
-  const { types } = storeToRefs(ItemsStore)
+  const { allItems, types, activeItemId, activeItem } = storeToRefs(ItemsStore)
 
   const RegionsStore = useRegionsStore()
-  const { addRegion } = RegionsStore
-
+  const { addRegion, updateRegionStartOrEnd } = RegionsStore
 
   const playerSrc = ref(null)
   const waveformRef = ref(null)
@@ -63,7 +62,6 @@ export const usePlayerStore = defineStore("player", () => {
     // create regionsPlugin
     const RegionsStore = useRegionsStore()
     const { regionsPlugin } = storeToRefs(RegionsStore)
-    const { updateRegionsList } = useRegionsStore()
 
     regionsPlugin.value = RegionsPlugin.create();
 
@@ -129,9 +127,25 @@ export const usePlayerStore = defineStore("player", () => {
 
     player.value.on('loading', (percent) => playerLoadingValue.value = percent)
 
+    // TODO: Regions events should go to regionsStore
+    regionsPlugin.value.on('region-in', (region) => {
+      activeItemId.value = allItems.value.find(item => item.regionId === region.id).id
+    })
 
-    // TODO: move to useRegions
-    // regionsPlugin.value.on('region-updated', updateRegionsList);
+    regionsPlugin.value.on('region-out', (region) => {
+      if(region.id === activeItem.value.regionId) activeItemId.value = null
+    })
+
+    regionsPlugin.value.on('region-update', (region, startOrEnd) => {
+      // if startOrEnd is undefined, it means the region is a marker
+      let startOrEndChecked = startOrEnd || 'start'
+      const itemId = allItems.value.find(item => item.regionId === region.id).id
+      const time = region[startOrEndChecked]
+      allItems.value.filter(x => x.id === itemId)[0][startOrEndChecked] = time
+      const item = allItems.value.filter(x => x.id === itemId)[0]
+      updateRegionStartOrEnd(region.id, time, startOrEnd)
+
+    })
   }
 
   const destroyPlayer = () => {
