@@ -129,6 +129,7 @@ export const usePlayerStore = defineStore("player", () => {
 
     // TODO: Regions events should go to regionsStore
     regionsPlugin.value.on('region-in', (region) => {
+      if(!activeItem.value) return
       activeItemId.value = allItems.value.find(item => item.regionId === region.id).id
     })
 
