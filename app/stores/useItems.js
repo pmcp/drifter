@@ -14,7 +14,7 @@ export const useItemsStore = defineStore("items", () => {
       icon: 'i-heroicons-puzzle-piece',
       description: 'Moments you selected from your sets.',
       hasRegions: true,
-      color: 'rgba(255, 99, 0, 0.8)',
+      color: 'rgba(34, 197, 94, 0.6)',
       resize: true,
       drag: false,
     },
