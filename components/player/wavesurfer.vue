@@ -1,9 +1,10 @@
 <template>
-  <div class="w-full flex flex-col gap-2 relative h-10">
-    <div ref="waveformRef" class="w-full absolute top-0 left-0" :class="{'opacity-0': playerLoadingValue === 0}"></div>
-    <div v-if="!playerIsReady">
-      <USkeleton class="h-8 m-2 w-full" v-if="playerLoadingValue === 0" />
-      <UProgress v-else animation="carousel" :value="playerLoadingValue"/>
+  <div class="relative">
+    <div ref="waveformRef" :class="{'opacity-0': playerLoadingValue === 0}"></div>
+    <div v-if="!playerIsReady" class="px-2 absolute w-full h-full top-0 left-0 flex justify-center items-center" >
+
+      <UProgress v-if="playerLoadingValue === 0" animation="carousel" :value="playerLoadingValue"/>
+      <UProgress v-else animation="carousel"/>
     </div>
   </div>
 </template>

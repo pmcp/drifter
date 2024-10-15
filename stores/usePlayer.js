@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 
 import WaveSurfer from 'wavesurfer.js';
 import RegionsPlugin from 'wavesurfer.js/dist/plugins/regions.js';
-// import ZoomPlugin from 'wavesurfer.js/dist/plugins/zoom.esm.js'
+import ZoomPlugin from 'wavesurfer.js/dist/plugins/zoom.esm.js'
 // import Minimap from 'wavesurfer.js/dist/plugins/minimap.js'
 import {computed} from "@vue/reactivity";
 
@@ -45,9 +45,9 @@ export const usePlayerStore = defineStore("player", () => {
 
     // Set the options
     playerSettings.value = {
-      height: 48,
+      height:60,
       waveColor: 'gray',
-      progressColor: 'red',
+      progressColor: 'rgb(34, 197, 94)',
       barGap: 0.3,
       barWidth: 1,
       barRadius: 2,
@@ -70,12 +70,12 @@ export const usePlayerStore = defineStore("player", () => {
       url: playerSrc.value,
       plugins: [
         regionsPlugin.value,
-        // ZoomPlugin.create({
-        //   // the amount of zoom per wheel step, e.g. 0.5 means a 50% magnification per scroll
-        //   scale: 0.5,
-        //   // Optionally, specify the maximum pixels-per-second factor while zooming
-        //   maxZoom: 100,
-        // }),
+        ZoomPlugin.create({
+          // the amount of zoom per wheel step, e.g. 0.5 means a 50% magnification per scroll
+          scale: 0.5,
+          // Optionally, specify the maximum pixels-per-second factor while zooming
+          maxZoom: 100,
+        }),
         // Minimap.create({
         //   // the Minimap can take all the same options as the WaveSurfer itself
         //   height: 20,
