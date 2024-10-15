@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 
-
 export const useNodesStore = defineStore("nodes", () => {
 
 
@@ -64,5 +63,3 @@ export const useNodesStore = defineStore("nodes", () => {
     }
   }
 )
-
-// useNodesStore.useCRDT()

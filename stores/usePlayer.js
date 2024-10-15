@@ -45,7 +45,7 @@ export const usePlayerStore = defineStore("player", () => {
 
     // Set the options
     playerSettings.value = {
-      height:60,
+      height: 'auto',
       waveColor: 'gray',
       progressColor: 'rgb(34, 197, 94)',
       barGap: 0.3,
@@ -57,6 +57,7 @@ export const usePlayerStore = defineStore("player", () => {
       autoCenter: true,
       hideScrollbar: true,
       dragToSeek: true,
+      normalize: true,
     }
 
     // create regionsPlugin

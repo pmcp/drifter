@@ -1,9 +1,11 @@
 <template>
-  <div ref="swipeEl">
+  <div >
 
 
-  <div class="w-full flex flex-col justify-end items-center">
-    <button @click="showTabs = !showTabs"  class="flex flex-row justify-center items-center bg-gray-300 h-[1px] w-8 m-1" />
+  <div class="w-full flex flex-col justify-end items-center relative">
+    <button @click="showTabs = !showTabs"  class="absolute w-10 h-4 -top-2 z-30 flex flex-row justify-center items-center">
+      <span class="pb-2 text-gray-300">____</span>
+    </button>
   </div>
 
   <UTabs :ui="tabsUi" :items="tabs" class="w-full h-10 overflow-hidden transition-all" :class="showTabs ? 'h-full' : 'h-unset'" v-model="selectedTab" >
@@ -26,25 +28,25 @@ const { tabs, tabsUi, selectedTab, showTabs } = storeToRefs(TabsStore)
 const { onTabClick } = TabsStore
 
 
-
-const swipeEl = ref(null)
-
-const { direction, isSwiping, lengthX, lengthY } = useSwipe(
-  swipeEl,
-  {
-    passive: false,
-    onSwipeEnd(e, direction) {
-      console.log('onSwipe', direction)
-      if (direction === 'up') {
-        showTabs.value = true
-        console.log('showTabs', showTabs.value)
-      }
-      else if (direction === 'down') {
-        showTabs.value = false
-      }
-    },
-  },
-)
+//
+// const swipeEl = ref(null)
+//
+// const { direction, isSwiping, lengthX, lengthY } = useSwipe(
+//   swipeEl,
+//   {
+//     passive: false,
+//     onSwipeEnd(e, direction) {
+//       console.log('onSwipe', direction)
+//       if (direction === 'up') {
+//         showTabs.value = true
+//         console.log('showTabs', showTabs.value)
+//       }
+//       else if (direction === 'down') {
+//         showTabs.value = false
+//       }
+//     },
+//   },
+// )
 
 
 </script>

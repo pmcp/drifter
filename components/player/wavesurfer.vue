@@ -1,6 +1,6 @@
 <template>
   <div class="relative">
-    <div ref="waveformRef" :class="{'opacity-0': playerLoadingValue === 0}"></div>
+    <div ref="waveformRef" class="h-full" :class="{'opacity-0': playerLoadingValue === 0}"></div>
     <div v-if="!playerIsReady" class="px-2 absolute w-full h-full top-0 left-0 flex justify-center items-center" >
 
       <UProgress v-if="playerLoadingValue === 0" animation="carousel" :value="playerLoadingValue"/>

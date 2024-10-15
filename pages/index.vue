@@ -1,24 +1,25 @@
 <template>
 
   <!-- Layer 1: Flow -->
-  <div class="absolute top-0 left-0 w-full h-full">
+
+  <div class="absolute top-0 left-0 w-full h-full ">
     <client-only>
-      <FlowMain class="h-screen w-screen"/>
+      <FlowMain class="h-svh w-svh"/>
     </client-only>
   </div>
 
   <!-- Layer 2: UI -->
   <div class="absolute z-10 top-0 left-0 p-2 w-full h-full flex flex-col justify-end items-center pointer-events-none">
-    <UCard :ui="mainPanelUi" class=" w-full max-w-[60rem] pointer-events-auto bg-gray-100 flex flex-col rounded-lg">
+    <UCard ref="swipeEl" :ui="mainPanelUi" class=" w-full max-w-[60rem] pointer-events-auto bg-gray-100 flex flex-col rounded-lg">
       <div  class="px-2 pb-2 ">
         <items-tabs />
       </div>
-        <div class="relative bg-black h-20 overflow-hidden py-2"  >
+        <div class="relative bg-black py-2"  >
 <!--          <div class="absolute z-20 w-full flex flex-col justify-end items-center">-->
 <!--            <button @click="togglePlayerSize"  class="flex flex-row justify-center items-center bg-gray-500 h-[1px] w-8 m-1 " />-->
 <!--          </div>-->
-          <div class="relative z-10">
-            <player-wavesurfer/>
+          <div class="relative z-10 h-20">
+            <player-wavesurfer class="h-full"/>
           </div>
 
         </div>
@@ -60,7 +61,6 @@
 <script setup>
 const ItemsStore = useItemsStore()
 const { types, allItems } = storeToRefs(ItemsStore)
-
 
 
 const mainPanelUi = ref({
