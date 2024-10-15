@@ -10,7 +10,7 @@
   <!-- Layer 2: UI -->
   <div class="absolute z-10 top-0 left-0 p-2 w-full h-full flex flex-col justify-end items-center pointer-events-none">
     <UCard :ui="mainPanelUi" class=" w-full max-w-[60rem] pointer-events-auto bg-gray-100 flex flex-col rounded-lg">
-      <div class="px-2 pb-2 ">
+      <div  class="px-2 pb-2 ">
         <items-tabs />
       </div>
         <div class="relative bg-black h-20 overflow-hidden py-2"  >
@@ -60,6 +60,7 @@
 <script setup>
 const ItemsStore = useItemsStore()
 const { types, allItems } = storeToRefs(ItemsStore)
+
 
 
 const mainPanelUi = ref({
