@@ -1,6 +1,10 @@
 import { defineStore } from 'pinia'
+
+
 export const useNodesStore = defineStore("nodes", () => {
 
+
+    // someHelper()
   const nodes = ref([])
 
   const thePositionToOffsetIfOverlapping = { x: 10, y: 10 }
@@ -60,3 +64,5 @@ export const useNodesStore = defineStore("nodes", () => {
     }
   }
 )
+
+// useNodesStore.useCRDT()

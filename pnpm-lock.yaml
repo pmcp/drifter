@@ -41,9 +41,6 @@ importers:
       nuxt:
         specifier: ^3.13.2
         version: 3.13.2(@parcel/watcher@2.4.1)(@types/node@22.7.5)(encoding@0.1.13)(eslint@9.12.0(jiti@2.3.3))(ioredis@5.4.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.24.0)(terser@5.34.1)(typescript@5.5.2)(vite@5.4.8(@types/node@22.7.5)(terser@5.34.1))(vue-tsc@2.1.6(typescript@5.5.2))(webpack-sources@3.2.3)
-      nuxt-swiper:
-        specifier: ^1.2.2
-        version: 1.2.2(magicast@0.3.5)(rollup@4.24.0)(webpack-sources@3.2.3)
       pinia-plugin-persistedstate:
         specifier: ^4.1.1
         version: 4.1.1(@pinia/nuxt@0.5.5(magicast@0.3.5)(rollup@4.24.0)(typescript@5.5.2)(vue@3.5.11(typescript@5.5.2))(webpack-sources@3.2.3))(magicast@0.3.5)(pinia@2.2.4(typescript@5.5.2)(vue@3.5.11(typescript@5.5.2)))(rollup@4.24.0)(webpack-sources@3.2.3)
@@ -3475,9 +3472,6 @@ packages:
     engines: {node: ^16.10.0 || >=18.0.0}
     hasBin: true
 
-  nuxt-swiper@1.2.2:
-    resolution: {integrity: sha512-y4s/srISP4OuhXbYg9/W1/6EWnbcoHRGEKBKAvGP0I2h0b3enhqZNEk7854M3F89ys8waacBXektPzamgl5xwQ==}
-
   nuxt@3.13.2:
     resolution: {integrity: sha512-Bjc2qRsipfBhjXsBEJCN+EUAukhdgFv/KoIR5HFB2hZOYRSqXBod3oWQs78k3ja1nlIhAEdBG533898KJxUtJw==}
     engines: {node: ^14.18.0 || >=16.10.0}
@@ -4327,10 +4321,6 @@ packages:
     resolution: {integrity: sha512-OoohrmuUlBs8B8o6MB2Aevn+pRIH9zDALSR+6hhqVfa6fRwG/Qw9VUMSMW9VNg2CFc/MTIfabtdOVl9ODIJjpw==}
     engines: {node: '>=14.0.0'}
     hasBin: true
-
-  swiper@10.3.1:
-    resolution: {integrity: sha512-24Wk3YUdZHxjc9faID97GTu6xnLNia+adMt6qMTZG/HgdSUt4fS0REsGUXJOgpTED0Amh/j+gRGQxsLayJUlBQ==}
-    engines: {node: '>= 4.7.0'}
 
   synckit@0.9.2:
     resolution: {integrity: sha512-vrozgXDQwYO72vHjUb/HnFbQx1exDjoKzqx23aXEg2a9VIg2TSFZ8FmeZpTjUCFMYw7mpX4BE2SFu8wI7asYsw==}
@@ -8730,16 +8720,6 @@ snapshots:
 
   nuxi@3.14.0: {}
 
-  nuxt-swiper@1.2.2(magicast@0.3.5)(rollup@4.24.0)(webpack-sources@3.2.3):
-    dependencies:
-      '@nuxt/kit': 3.13.2(magicast@0.3.5)(rollup@4.24.0)(webpack-sources@3.2.3)
-      swiper: 10.3.1
-    transitivePeerDependencies:
-      - magicast
-      - rollup
-      - supports-color
-      - webpack-sources
-
   nuxt@3.13.2(@parcel/watcher@2.4.1)(@types/node@22.7.5)(encoding@0.1.13)(eslint@9.12.0(jiti@2.3.3))(ioredis@5.4.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.24.0)(terser@5.34.1)(typescript@5.5.2)(vite@5.4.8(@types/node@22.7.5)(terser@5.34.1))(vue-tsc@2.1.6(typescript@5.5.2))(webpack-sources@3.2.3):
     dependencies:
       '@nuxt/devalue': 2.0.2
@@ -9696,8 +9676,6 @@ snapshots:
       css-what: 6.1.0
       csso: 5.0.5
       picocolors: 1.1.0
-
-  swiper@10.3.1: {}
 
   synckit@0.9.2:
     dependencies:

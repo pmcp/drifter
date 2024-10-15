@@ -11,9 +11,8 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/ui',
     '@vueuse/nuxt',
-    'nuxt-swiper',
     '@pinia/nuxt',
-    'pinia-plugin-persistedstate/nuxt',
+    'pinia-plugin-persistedstate/nuxt'
   ],
   extends: ['@nuxt/ui-pro'],
   hub: {

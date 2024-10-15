@@ -1,7 +1,9 @@
 <template>
-  <UChip :text="numberOfItems" size="lg" :show="numberOfItems > 0">
-    <span @click="onTabClick(index)" class="capitalize text-xs">{{ item.type }}</span>
-  </UChip>
+  <client-only>
+    <UChip :text="numberOfItems" size="lg" :show="numberOfItems > 0">
+      <span @click="onTabClick(index)" class="capitalize text-xs">{{ item.type }}</span>
+    </UChip>
+  </client-only>
 </template>
 <script setup>
 
