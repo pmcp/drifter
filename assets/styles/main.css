@@ -1,0 +1,8 @@
+body {
+    background-color: #292929;
+    background-image: url('/assets/images/noise.png');
+    background-size: 80px 80px;
+
+    /*background: linear-gradient(to top, #09203f 0%, #537895 100%);*/
+
+}

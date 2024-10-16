@@ -1,0 +1,33 @@
+/* VARS */
+
+:root {
+    --spacing: .4em;
+
+    /* RHYTHM */
+    --buttonSize: 4em;
+
+    /* COLORS */
+    --color1: #F2F2F2;
+    --color2: #F2EFED;
+    --color3: #E2E2E2;
+    --color4: #908E8D;
+    --color5: #FA5F28;
+    --color6: #2E2D2D;
+    --color7: #171717;
+    --color8: #858384;
+    --color9: #403E3D;
+    --color10:#C0C0C0;
+    --color11: #E62C5E;
+    --color12: #429CCE;
+    --color13:#F12618;
+
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'tech';
+    src: url('/assets/fonts/tt34.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
