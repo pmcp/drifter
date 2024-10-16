@@ -45,18 +45,6 @@ export const useRegionsStore = defineStore("regions", () => {
   };
 
 
-
-  // Dont know if still needed
-
-
-  const loadRegions = () => {
-    console.log('loadRegions')
-    regionsPlugin.value.clearRegions()
-    for(const region of savedRegions.value) {
-      regionsPlugin.value.addRegion(region)
-    }
-  }
-
   const setRegion = (region) => {
     if(region.key === 'sample' && regionsPlugin.value.regions.length > 0) {
       savedRegions.value = regionsPlugin.value.regions.map(r => ({
@@ -75,6 +63,14 @@ export const useRegionsStore = defineStore("regions", () => {
 
 
 
-  return { regionsPlugin, addRegion, setRegion, loadRegions, removeRegion, updateRegionStartOrEnd }
+
+
+  return {
+    regionsPlugin,
+    addRegion,
+    setRegion,
+    removeRegion,
+    updateRegionStartOrEnd
+  }
 
 })

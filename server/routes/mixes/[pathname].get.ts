@@ -3,3 +3,4 @@ export default eventHandler(async (event) => {
 
   return hubBlob().serve(event, pathname)
 })
+
