@@ -13,6 +13,7 @@
     <UCard ref="swipeEl" :ui="mainPanelUi" class=" w-full max-w-[60rem] pointer-events-auto bg-gray-100 flex flex-col rounded-lg">
       <div  class="px-2 pb-2 ">
         <items-tabs />
+
       </div>
         <div class="relative bg-black py-2"  >
 <!--          <div class="absolute z-20 w-full flex flex-col justify-end items-center">-->

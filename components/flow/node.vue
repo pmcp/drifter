@@ -1,6 +1,12 @@
 <template>
+
   <UCard :ui="ui">
-    <UButton :ui="{ rounded: 'rounded-full' }" @click="goToItemStartAndPlay(item.id)" class="flex flex-row justify-center" icon="i-heroicons-play" />
+    <div class="flex flex-row gap-2 items-center justify-between">
+      {{ item.data.inChain ? '✅' : '❌' }}
+      <UButton @click="toggleChainPresence('node', item)" class="flex flex-row justify-center" :icon="item.data.inChain ? 'i-heroicons-plus' : 'i-heroicons-minus'" />
+      <UButton :ui="{ rounded: 'rounded-full' }" @click="goToItemStartAndPlay(item.id)" class="flex flex-row justify-center" icon="i-heroicons-play" />
+    </div>
+
 <!--    <span class="text-md font-bold">{{ item.type }}</span>-->
   </UCard>
 </template>
@@ -16,7 +22,8 @@ const props = defineProps({
 })
 
 const ActionsStore = useActionsStore()
-const { goToItemStartAndPlay } = ActionsStore
+const { goToItemStartAndPlay, toggleChainPresence } = ActionsStore
+
 
 
 const ui = computed(() => {
@@ -24,7 +31,7 @@ const ui = computed(() => {
     base: '',
     background: 'bg-white dark:bg-gray-900',
     divide: 'divide-y divide-gray-200 dark:divide-gray-800',
-    ring: `ring-1 ring-gray-200 dark:ring-gray-800 ${props.active ? 'ring-primary-500' : ''}`,
+    ring: `ring-1 ring-gray-200 dark:ring-gray-800 ${props.item.data.inChain ? 'ring-primary-500' : ''}`,
     rounded: 'rounded-lg',
     shadow: 'shadow',
     body: {

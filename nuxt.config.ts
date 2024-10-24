@@ -21,12 +21,6 @@ export default defineNuxtConfig({
     blob: true,
     cache: true,
   },
-  nitro: {
-    experimental: {
-      // Enable Server API documentation within NuxtHub
-      openAPI: true
-    }
-  },
   // Development
   devtools: { enabled: true },
   app: {

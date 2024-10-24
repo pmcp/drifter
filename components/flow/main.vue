@@ -27,9 +27,7 @@
 
       </flow-node>
       <Handle type="target" position="left" />
-
     </template>
-
 
   </VueFlow>
   </div>
@@ -88,10 +86,14 @@ const playRegion = (region) => {
 // All flow events
 const {
   onNodeDrag,
+  onEdgeClick,
   onEdgeDoubleClick,
   onPaneClick,
   onNodeClick,
-  onEdgesChange
+  onEdgesChange,
+  getOutgoers,
+  onConnectEnd
+
 } = useVueFlow()
 
 onPaneClick((value) => {
@@ -106,14 +108,27 @@ onEdgesChange((value) => {
   handleEdgesChange(value)
 })
 
-onEdgeDoubleClick((value) => {
-  // playRegion(value.edge)
+onConnectEnd((value, sadf) => {
+  console.log('onConnectEnd', value)
+  // toggleChainPresence('edge', value.edge)
 })
+
 
 onNodeClick((value) => {
-  setActiveItem(value.node.id)
+  // console.log(value)
+  // const connectedEdges = getOutgoers(value.node.id)
+  // console.log(connectedEdges)
+  //
+  // setActiveItem(value.node.id)
+
 })
 
+
+onEdgeDoubleClick((value) => {
+  console.log(value)
+  // toggleChainPresence('edge', value.edge)
+  // playRegion(value.edge)
+})
 </script>
 
 
@@ -126,5 +141,21 @@ onNodeClick((value) => {
 @import '../../node_modules/@vue-flow/core/dist/theme-default.css';
 
 @import '../../node_modules/@vue-flow/controls/dist/style.css';
+
+/* Edges */
+.vue-flow__edge.selected .vue-flow__edge-path {
+  stroke: red;
+  stroke-width: 2px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.vue-flow__edge.selected .edgeIsActive .vue-flow__edge-path {
+  stroke: green;
+  stroke-width: 2px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 
 </style>
