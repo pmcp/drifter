@@ -35,6 +35,7 @@ export const useNodesStore = defineStore("nodes", () => {
       data: {
         start: node.start,
         end: node.end,
+        inChain: false,
       },
     })
   }
@@ -52,6 +53,8 @@ export const useNodesStore = defineStore("nodes", () => {
       nodes.value.splice(index, 1)
     }
   }
+
+
 
   return { nodes, addNode, updateNode, removeNode }
 

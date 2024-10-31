@@ -86,14 +86,11 @@ const playRegion = (region) => {
 // All flow events
 const {
   onNodeDrag,
-  onEdgeClick,
   onEdgeDoubleClick,
   onPaneClick,
   onNodeClick,
   onEdgesChange,
-  getOutgoers,
   onConnectEnd
-
 } = useVueFlow()
 
 onPaneClick((value) => {

@@ -3,7 +3,8 @@
   <UCard :ui="ui">
     <div class="flex flex-row gap-2 items-center justify-between">
       {{ item.data.inChain ? '✅' : '❌' }}
-      <UButton @click="toggleChainPresence('node', item)" class="flex flex-row justify-center" :icon="item.data.inChain ? 'i-heroicons-plus' : 'i-heroicons-minus'" />
+      {{ item.id }}
+      <UButton @click="item.data.inChain = !item.data.inChain" class="flex flex-row justify-center" :icon="item.data.inChain ? 'i-heroicons-minus' : 'i-heroicons-plus'" />
       <UButton :ui="{ rounded: 'rounded-full' }" @click="goToItemStartAndPlay(item.id)" class="flex flex-row justify-center" icon="i-heroicons-play" />
     </div>
 
@@ -11,6 +12,9 @@
   </UCard>
 </template>
 <script setup>
+
+
+
 const props = defineProps({
   item: {
     type: Object
@@ -21,8 +25,9 @@ const props = defineProps({
   }
 })
 
+
 const ActionsStore = useActionsStore()
-const { goToItemStartAndPlay, toggleChainPresence } = ActionsStore
+const { goToItemStartAndPlay } = ActionsStore
 
 
 

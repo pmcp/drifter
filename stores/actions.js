@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import {v4 as uuidv4} from 'uuid';
 
+
 export const useActionsStore = defineStore("actions", () => {
 
   const PlayerStore = usePlayerStore()
@@ -19,7 +20,7 @@ export const useActionsStore = defineStore("actions", () => {
   const { goToTabAndShow } = TabsStore
 
   const NodesStore = useNodesStore()
-  const { addNode, removeNode } = NodesStore
+  const { addNode, removeNode, addNodeToChain } = NodesStore
 
   const checkIfEverythingIsReady = () => {
     if(!playerIsReady) return false;
@@ -105,19 +106,6 @@ export const useActionsStore = defineStore("actions", () => {
     player.value.play()
   }
 
-  const toggleChainPresence = (type, item) => {
-      console.log(type, item)
-    if (type === 'edge') {
-      // item.data.inChain = !item.data.inChain
-      // item.sourceNode.data.inChain = !item.data.inChain
-      // item.targetNode.data.inChain = !item.data.inChain
-    }
 
-    if(type === 'node') {
-
-      addNodeToChain(item)
-    }
-  }
-
-  return { addItem, removeItem, setActiveItem, mountPlayer, setStartOrEnd, goToItemStartAndPlay, toggleChainPresence }
+  return { addItem, removeItem, setActiveItem, mountPlayer, setStartOrEnd, goToItemStartAndPlay }
 })

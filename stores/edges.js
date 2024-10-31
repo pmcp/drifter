@@ -11,12 +11,12 @@ export const useEdgesStore = defineStore("edges", () => {
     if(changedEdges.length < 1) return;
 
     for (const changedEdge of changedEdges) {
+      console.log('loop for changedEdges', changedEdge, changedEdges )
       const changeType = changedEdge.type
       const edge = changedEdge.item
 
       if(changeType === 'add') {
-        edge.data.inChain = false
-        if(edges.value === null) edges.value = [edge]
+        if(edges.value === null) return edges.value = [edge]
         edges.value = [...edges.value, edge]
       }
 
