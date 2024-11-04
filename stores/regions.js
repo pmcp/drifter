@@ -8,8 +8,10 @@ export const useRegionsStore = defineStore("regions", () => {
   const PlayerStore = usePlayerStore()
   const { player } = storeToRefs(PlayerStore)
 
+
   const ItemsStore = useItemsStore()
   const { allItems } = storeToRefs(ItemsStore)
+
 
   const TabsStore = useTabsStore()
   const { showTabs, selectedTab } = storeToRefs(TabsStore)
@@ -37,10 +39,14 @@ export const useRegionsStore = defineStore("regions", () => {
   };
 
   const updateRegionStartOrEnd = (regionId, newTime, startOrEnd) => {
+    console.log('updateRegionStartOrEnd', regionId, newTime, startOrEnd)
     if (regionsPlugin.value) {
       const wavesurferRegion = regionsPlugin.value.getRegions().find(r => r.id === regionId);
       if(!wavesurferRegion) return;
       wavesurferRegion.setOptions({ [startOrEnd]: newTime })
+      // Need to update item that belongs to this region
+      const item = allItems.value.find(x => x.regionId === regionId)
+      if(startOrEnd === 'start') item[startOrEnd] = newTime
     }
   };
 
@@ -59,10 +65,6 @@ export const useRegionsStore = defineStore("regions", () => {
 
     return regionsPlugin.value.addRegion(region)
   }
-
-
-
-
 
 
   return {

@@ -6,9 +6,13 @@ import ZoomPlugin from 'wavesurfer.js/dist/plugins/zoom.esm.js'
 // import Minimap from 'wavesurfer.js/dist/plugins/minimap.js'
 import {computed} from "@vue/reactivity";
 
+
 const formatTime= (seconds) => [seconds / 60, seconds % 60].map((v) => `0${Math.floor(v)}`.slice(-2)).join(':')
 
 export const usePlayerStore = defineStore("player", () => {
+
+  const NodesStore = useNodesStore()
+  const { nodes } = storeToRefs(NodesStore)
 
   const ItemsStore = useItemsStore()
   const { allItems, types, activeItemId, activeItem } = storeToRefs(ItemsStore)
@@ -42,6 +46,9 @@ export const usePlayerStore = defineStore("player", () => {
       console.error('⛔ usePlayer - initPlayerinitPlayer: playerSrc is not set');
       return
     }
+
+
+
 
     // Set the options
     playerSettings.value = {
@@ -130,14 +137,14 @@ export const usePlayerStore = defineStore("player", () => {
 
     // TODO: Regions events should go to regionsStore
     regionsPlugin.value.on('region-in', (region) => {
-      if(!activeItem.value) return
-      activeItemId.value = allItems.value.find(item => item.regionId === region.id).id
+      const node = nodes.value.find(x => x.data.regionId === region.id)
+      if(node) node.data.playing = true
+
     })
 
     regionsPlugin.value.on('region-out', (region) => {
-      console.log('✅ usePlayer - regionsPlugin.on - region-out', region)
-      if(!activeItem.value) return
-      if(region.id === activeItem.value.regionId) activeItemId.value = null
+      const node = nodes.value.find(x => x.data.regionId === region.id)
+      if(node) node.data.playing = false
     })
 
     regionsPlugin.value.on('region-update', (region, startOrEnd) => {
@@ -149,6 +156,13 @@ export const usePlayerStore = defineStore("player", () => {
       const item = allItems.value.filter(x => x.id === itemId)[0]
       updateRegionStartOrEnd(region.id, time, startOrEnd)
 
+    })
+
+    regionsPlugin.value.on('region-clicked', (region, e) => {
+
+      e.stopPropagation() // prevent triggering a click on the waveform
+      const node = nodes.value.find(x => x.data.regionId === region.id)
+      if(node) node.data.inChain = !node.data.inChain
     })
   }
 

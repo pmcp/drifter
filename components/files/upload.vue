@@ -1,4 +1,11 @@
 <template>
+  <div v-for="file of files" :key="file.id">
+<!--    <pre>{{ file }}</pre>-->
+  <audio controls>
+  <source :src="`/files/${file.pathname}`" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+  </div>
 
       <UForm @submit.prevent="uploadMix" class="flex flex-row justify-between gap-2" >
         <UInput
@@ -16,12 +23,12 @@
 </template>
 
 <script setup lang="ts">
-const { data: mixes, refresh } = await useFetch('/api/mixes')
+const { data: files, refresh } = await useFetch('/api/files')
 
 
 async function uploadMix (e: Event) {
   // https://hub.nuxt.com/docs/storage/blob#useupload
-  const upload = useUpload('/api/mixes/upload', {
+  const upload = useUpload('/api/files/upload', {
     multiple: false
   })
   const form = e.target as HTMLFormElement
@@ -35,7 +42,7 @@ async function uploadMix (e: Event) {
 }
 
 async function deleteMix (pathname: string) {
-  await $fetch(`/api/mixes/${pathname}`, { method: 'DELETE' })
+  await $fetch(`/api/files/${pathname}`, { method: 'DELETE' })
   await refresh()
 }
 </script>

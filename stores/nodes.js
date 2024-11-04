@@ -36,6 +36,8 @@ export const useNodesStore = defineStore("nodes", () => {
         start: node.start,
         end: node.end,
         inChain: false,
+        regionId: node.regionId,
+        playing: false,
       },
     })
   }

@@ -38,6 +38,7 @@ export const useActionsStore = defineStore("actions", () => {
         hasNode: false,
         regionId: uuidv4(),
         inChain: false,
+        playing: false,
       }
       // TODO: Make the time to add for range a setting or a something dynamic based on visible px or something?
       if(type.regionType === 'range') itemToCreate.end = itemToCreate.start + 1
@@ -97,15 +98,16 @@ export const useActionsStore = defineStore("actions", () => {
 
   }
 
-  const goToItemStartAndPlay = (itemId) => {
+  const goToItemInPlayer = (itemId) => {
     const item = allItems.value.filter(x => x.id === itemId)[0]
     if(!item) return;
     // set the item as active
     activeItemId.value = itemId
     player.value.setTime(item.start)
-    player.value.play()
+    // player.value.play()
   }
 
 
-  return { addItem, removeItem, setActiveItem, mountPlayer, setStartOrEnd, goToItemStartAndPlay }
+
+  return { addItem, removeItem, setActiveItem, mountPlayer, setStartOrEnd, goToItemInPlayer }
 })

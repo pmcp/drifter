@@ -15,7 +15,7 @@
         <items-tabs />
 
       </div>
-        <div class="relative bg-black py-2"  >
+        <div class="relative bg-black"  >
 <!--          <div class="absolute z-20 w-full flex flex-col justify-end items-center">-->
 <!--            <button @click="togglePlayerSize"  class="flex flex-row justify-center items-center bg-gray-500 h-[1px] w-8 m-1 " />-->
 <!--          </div>-->
@@ -33,6 +33,7 @@
           </player-controls-in-out>
         </div>
         <items-add :key="types[1].id" :type="types[1]"/>
+        <items-add :key="types[2].id" :type="types[2]"/>
       </div>
     </UCard>
   </div>
@@ -87,4 +88,5 @@ const mainPanelUi = ref({
     padding: 'px-4 py-4 sm:px-6',
   },
 })
+
 </script>

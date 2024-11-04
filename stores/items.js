@@ -63,6 +63,7 @@ export const useItemsStore = defineStore("items", () => {
       regionId: item.regionId,
       hasNode: item.hasNode,
       inChain: item.inChain,
+      playing: item.playing,
     });
     activeItemId.value = item.id;
 

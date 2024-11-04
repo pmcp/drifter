@@ -1,11 +1,26 @@
 <template>
 
   <UCard :ui="ui">
-    <div class="flex flex-row gap-2 items-center justify-between">
-      {{ item.data.inChain ? '✅' : '❌' }}
-      {{ item.id }}
-      <UButton @click="item.data.inChain = !item.data.inChain" class="flex flex-row justify-center" :icon="item.data.inChain ? 'i-heroicons-minus' : 'i-heroicons-plus'" />
-      <UButton :ui="{ rounded: 'rounded-full' }" @click="goToItemStartAndPlay(item.id)" class="flex flex-row justify-center" icon="i-heroicons-play" />
+    <div class="flex flex-row gap-2 items-center justify-between flex-col">
+      {{ theItem.start }} - {{ theItem.end }}
+      InChain: {{ theItem.inChain ? '✅' : '❌' }}
+      Active: {{ theItem.playing ? '✅' : '❌' }}
+      <div>
+        <UButton @click="theItem.inChain = !theItem.inChain" class="flex flex-row justify-center" :icon="theItem.inChain ? 'i-heroicons-minus' : 'i-heroicons-plus'" />
+        <UButton :ui="{ rounded: 'rounded-full' }" @click="goToItemInPlayer(theItem.id)" class="flex flex-row justify-center" icon="i-heroicons-play" />
+      </div>
+
+      <div class="flex flex-col gap-2 w-full" v-if="theItemsInsideThisItem.length > 0">
+
+        <div class="flex items-center gap-2" v-for="el in theItemsInsideThisItem" :key="el.id" >
+
+            <UButton :ui="{ rounded: 'rounded-full' }" @click="goToItemInPlayer(el.id, false)" class="flex flex-row justify-center" icon="i-heroicons-play" /> {{ el.type }} - {{ el.start }} - {{ el.content }}
+
+
+
+        </div>
+      </div>
+
     </div>
 
 <!--    <span class="text-md font-bold">{{ item.type }}</span>-->
@@ -25,10 +40,23 @@ const props = defineProps({
   }
 })
 
-
 const ActionsStore = useActionsStore()
-const { goToItemStartAndPlay } = ActionsStore
+const { goToItemInPlayer, getNodesForRegionsInsideThisRegion } = ActionsStore
 
+const ItemsStore = useItemsStore()
+const { allItems } = storeToRefs(ItemsStore)
+
+
+
+const theItem = computed(() => {
+  // find the item in allItems
+  const item = allItems.value.find(x => x.id === props.item.id)
+  if(!item) return null
+  return item
+})
+
+
+const theItemsInsideThisItem = computed(() => allItems.value.filter(x => (x.start >= theItem.value.start && x.start <= theItem.value.end) && x.type !== 'sample'))
 
 
 const ui = computed(() => {
